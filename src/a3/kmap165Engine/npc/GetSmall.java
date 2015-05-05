@@ -1,17 +1,19 @@
 package a3.kmap165Engine.npc;
 
+
 import sage.ai.behaviortrees.BTAction;
 import sage.ai.behaviortrees.BTStatus;
 
-public class MopeAround extends BTAction {
-
+public class GetSmall extends BTAction {
+	
 	NPC npc;
-
-	public MopeAround(NPC n) {
+	public GetSmall(NPC n)
+	{
 		npc = n;
 	}
-
-	protected BTStatus update(float time) {
+	
+	protected BTStatus update(float elapsedTime)
+	{
 		npc.mopeAround();
 		return BTStatus.BH_SUCCESS;
 	}

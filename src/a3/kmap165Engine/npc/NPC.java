@@ -3,40 +3,41 @@ package a3.kmap165Engine.npc;
 import graphicslib3D.Point3D;
 
 public class NPC {
+	
 	Point3D location;
-
-	public double getX() {
+	
+	public double getX()
+	{
 		return location.getX();
 	}
-
-	public double getY() {
+	public double getY()
+	{
 		return location.getY();
 	}
-
-	public double getZ() {
+	public double getZ()
+	{
 		return location.getZ();
 	}
-
-	public void mopeAround() {
-		// where i mope
+	
+	public void updateLocation()
+	{
+		location.setX(this.getX());
+		location.setY(this.getY());
+		location.setZ(this.getZ());
+		
 	}
-
-	public void attackAvatar() {
-		// where I COPE
+	public void mopeAround()
+	{
+		System.out.println("moping around");
 	}
-
-	public void randomizeLocation() {
-
+	public void throwPowerUps()
+	{
+		System.out.println("powerups throwing");
 	}
-
-	public void updateLocation() {
-		// TODO Auto-generated method stub
-
-	}
-
 	public void randomizeLocation(int nextInt, int nextInt2) {
-		// TODO Auto-generated method stub
-
+		this.location.setX(nextInt);
+		this.location.setZ(nextInt2);
+		
 	}
 
 }

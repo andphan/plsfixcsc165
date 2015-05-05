@@ -151,4 +151,9 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 		// TODO Auto-generated method stub
 
 	}
+
+	public void sendCheckForAvatarNear() {
+		// TODO Auto-generated method stub
+		
+	}
 }
