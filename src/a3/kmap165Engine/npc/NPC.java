@@ -1,10 +1,18 @@
 package a3.kmap165Engine.npc;
 
+import graphicslib3D.Matrix3D;
 import graphicslib3D.Point3D;
 
 public class NPC {
 	
 	Point3D location;
+	private Matrix3D localTranslation;
+	
+	public NPC()
+	{
+		this.localTranslation = new Matrix3D();
+	}
+	
 	
 	public double getX()
 	{
@@ -38,6 +46,9 @@ public class NPC {
 		this.location.setX(nextInt);
 		this.location.setZ(nextInt2);
 		
+	}
+	public void setLocalTranslation(Matrix3D trans) {
+		localTranslation = trans;
 	}
 
 }

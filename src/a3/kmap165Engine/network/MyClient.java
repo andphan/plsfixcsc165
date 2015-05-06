@@ -21,6 +21,7 @@ public class MyClient extends GameConnectionClient {
 	private FightingGame game;
 	private UUID id;
 	private Vector<GhostAvatar> ghostAvatars;
+	private Vector<GhostNPC> ghostNPCs;
 
 	public MyClient(InetAddress remAddr, int remPort, ProtocolType pType,
 			FightingGame game) throws IOException {
