@@ -199,4 +199,34 @@ public class MyClient extends GameConnectionClient {
 	public Vector<GhostAvatar> getAvatars() {
 		return ghostAvatars;
 	}
+	
+	private void createGhostNPC(int id, Vector3D position)
+	{
+		GhostNPC newNPC = new GhostNPC(id, position);
+		ghostNPCs.add(newNPC);
+		game.addNPC(newNPC);
+		
+	}
+	private void updateGhostNPC(int id, Vector3D pos, int danger)
+	{
+		if (ghostNPCs.size()>id)
+		{
+			ghostNPCs.get(id).setPosition(pos);
+		}
+	}
+	
+	
+	// need to add message tokens
+	
+	public void askForNPCinfo()
+	{
+		try 
+		{
+			sendPacket(new String("needNPC," + id.toString()));
+		}
+		 catch (IOException p)
+		{
+			 p.printStackTrace();
+		}
+	}
 }

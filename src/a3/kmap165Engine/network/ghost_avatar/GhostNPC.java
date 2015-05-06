@@ -1,10 +1,11 @@
 package a3.kmap165Engine.network.ghost_avatar;
 
+import sage.scene.TriMesh;
 import graphicslib3D.Matrix3D;
 import graphicslib3D.Vector3D;
 import a3.kmap165Engine.npc.NPC;
 
-public class GhostNPC {
+public class GhostNPC extends TriMesh {
 
 	NPC body;
 	int id;
