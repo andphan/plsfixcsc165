@@ -1079,7 +1079,15 @@ public class FightingGame extends BaseGame implements KeyListener {
 		this.addGameWorldObject(avatar);
 
 	}
-
+	public void addNPC(GhostNPC npc)
+	{
+		this.addGameWorldObject(npc);
+	}
+	
+	public void removeNPC(GhostNPC npc)
+	{
+		this.removeGameWorldObject(npc);
+	}
 	public void removeNode(GhostAvatar avatar) {
 		// TODO Auto-generated method stub
 		System.out.println("removenode is being called!");

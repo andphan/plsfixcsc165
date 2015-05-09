@@ -20,7 +20,7 @@ public class OneSecPassed extends BTCondition {
 		float elapsedMiliSecs = (System.nanoTime() - lastUpdateTime) / (1000000.0f);
 		if (elapsedMiliSecs >= 500.0f) {
 			lastUpdateTime = System.nanoTime();
-			npcc.setNearFlag();
+			npcc.setNearFlag(false);
 			return true;
 		} else
 			return false;

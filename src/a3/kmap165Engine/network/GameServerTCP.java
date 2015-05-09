@@ -168,10 +168,10 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 			{
 				// hey hey hey
 			}
-			if (messageTokens[0].compareTo("colide")==0)
+			if (messageTokens[0].compareTo("collide")==0)
 			{
 				// hey hey hey
-				3
+				
 				
 			}
 			} catch (Exception zzz)

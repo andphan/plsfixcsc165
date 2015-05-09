@@ -14,6 +14,8 @@ public class NPCcontroller {
 	private GameServerTCP server;
 	private NPC npc;
 	private boolean nearFlag;
+	private NPC[] NPClist = new NPC[3];
+	private int numNPCs = 3;
 
 	public void startNPCControl() {
 		bt = new BehaviorTree(BTCompositeType.SELECTOR);
@@ -44,7 +46,13 @@ public class NPCcontroller {
 		}
 
 	}
-
+	public void updateNPCs()
+	{
+		for (int i = 0; i < numNPCs; i++)
+		{
+			NPClist[i].updateLocation();
+		}
+	}
 	public void setupBehaviorTree() {
 		bt.insertAtRoot(new BTSequence(10));
 		bt.insertAtRoot(new BTSequence(20));
@@ -59,8 +67,20 @@ public class NPCcontroller {
 		return nearFlag;
 	}
 
-	public void setNearFlag() {
-		nearFlag = true; // test
+	public void setNearFlag(boolean b) {
+		nearFlag = b; // test
 	}
-
+	public NPC getNPC(int i) {
+		NPC nz = new NPC();
+		for (int x = 0; x < NPClist.length; x++)
+		{
+			NPClist[x] = nz;
+			i++;
+		}
+		return NPClist[i];
+	}
+	public int getNumOfNPCs() {
+		// TODO Auto-generated method stub
+		return numNPCs;
+	}
 }
