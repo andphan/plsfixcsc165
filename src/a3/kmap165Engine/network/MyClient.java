@@ -21,7 +21,6 @@ public class MyClient extends GameConnectionClient {
 	private FightingGame game;
 	private UUID id;
 	private Vector<GhostAvatar> ghostAvatars;
-	private Vector<GhostNPC> ghostNPCs;
 
 	public MyClient(InetAddress remAddr, int remPort, ProtocolType pType,
 			FightingGame game) throws IOException {
@@ -82,16 +81,6 @@ public class MyClient extends GameConnectionClient {
 					+ ghostPosition.getY() + "," + ghostPosition.getZ());
 			createGhostAvatar(ghostID, ghostPosition, this);
 		}
-		// creating npc avatar here 
-		if (messageTokens[0].compareTo("createNPC")==0)
-		{
-			System.out.println("create obtained for NPC test");
-			int ghostID = Integer.parseInt(messageTokens[1]);
-			Vector3D npcPosition = new Vector3D(Double.parseDouble(messageTokens[2]),
-					Double.parseDouble(messageTokens[3]), Double.parseDouble(messageTokens[4]));
-			System.out.println("get pos of npc: " + npcPosition.getX() + ", " + npcPosition.getY() + ", " + npcPosition.getZ());
-			createGhostNPC(ghostID, npcPosition);
-		}
 		if (messageTokens[0].compareTo("wsds") == 0) { // receive “wants…”
 			System.out.println("wsds obtained");
 			// format: wsds, remoteID
@@ -110,19 +99,6 @@ public class MyClient extends GameConnectionClient {
 			// ghostPosition.getY() +"," + ghostPosition.getZ());
 			updateGhostAvatar(remoteID, ghostPosition);
 		}
-		// here is where you're updating the npc
-		if (messageTokens[0].compareTo("mnpc")==0)
-		{
-			int ghostID = Integer.parseInt(messageTokens[1]);
-			Vector3D npcPos = new Vector3D();
-			npcPos.setX(Double.parseDouble(messageTokens[2]));
-			npcPos.setY(Double.parseDouble(messageTokens[3]));
-			npcPos.setZ(Double.parseDouble(messageTokens[4]));
-			updateGhostNPC(ghostID, npcPos);
-		}
-		
-		// npcMope
-		// npcAttack
 	}
 
 	public void sendCreateMessage(Vector3D pos) {
@@ -222,35 +198,4 @@ public class MyClient extends GameConnectionClient {
 	public Vector<GhostAvatar> getAvatars() {
 		return ghostAvatars;
 	}
-	
-	private void createGhostNPC(int id, Vector3D position)
-	{
-		GhostNPC newNPC = new GhostNPC(id, position);
-		ghostNPCs.add(newNPC);
-		game.addNPC(newNPC);
-		
-	}
-	private void updateGhostNPC(int id, Vector3D pos)
-	{
-		if (ghostNPCs.size()>id)
-		{
-			ghostNPCs.get(id).setPosition(pos);
-		}
-	}
-	
-	
-	// need to add message tokens
-	
-	public void askForNPCinfo()
-	{
-		try 
-		{
-			sendPacket(new String("needNPC," + id.toString()));
-		}
-		 catch (IOException p)
-		{
-			 p.printStackTrace();
-		}
-	}
-	
 }

@@ -1,61 +1,61 @@
-<scene previous_export_time="1430107647.900092" formatVersion="1.0.1" export_time="1430513847.027778" exported_by="Albert" >
+<scene exported_by="mackk" formatVersion="1.0.1" export_time="1430953545.284415" previous_export_time="1430953125.209415" >
   <nodes >
     <node name="bonestruc" >
-      <position y="16.632174" x="0.015645" z="0.073836" />
-      <rotation qx="0.000000" qz="-0.000000" qy="0.000000" qw="1.000000" />
-      <scale y="1.000000" x="1.000000" z="1.000000" />
+      <position x="0.015645" z="0.073836" y="16.632174" />
+      <rotation qx="0.000000" qy="0.000000" qz="-0.000000" qw="1.000000" />
+      <scale x="1.000000" z="1.000000" y="1.000000" />
       <game >
         <sensors />
         <actuators />
       </game>
       <node name="p1Mesh" >
-        <position y="-23.826603" x="0.000000" z="-0.000000" />
-        <rotation qx="0.707107" qz="-0.000000" qy="0.000000" qw="0.707107" />
-        <scale y="1.000000" x="1.000000" z="1.000000" />
+        <position x="0.000000" z="-0.000000" y="-23.826603" />
+        <rotation qx="0.707107" qy="0.000000" qz="-0.000000" qw="0.707107" />
+        <scale x="1.000000" z="1.000000" y="1.000000" />
         <game >
           <sensors />
           <actuators />
         </game>
-        <entity lock_trans_y="False" damping_rot="0.10000000149011612" inertia_tensor="0.4000000059604645" lock_rot_x="False" name="Cube.001" lock_trans_z="False" damping_trans="0.03999999910593033" anisotropic_friction="False" lock_rot_y="False" mass_radius="1.0" actor="False" meshFile="Cube.001.mesh" friction_z="1.0" lock_trans_x="False" lock_rot_z="False" velocity_max="0.0" mass="1.0" ghost="False" physics_type="STATIC" velocity_min="0.0" friction_y="1.0" friction_x="1.0" />
+        <entity meshFile="Cube.001.mesh" mass="1.0" velocity_min="0.0" damping_trans="0.03999999910593033" inertia_tensor="0.4000000059604645" friction_x="1.0" lock_rot_z="False" mass_radius="1.0" lock_rot_x="False" friction_y="1.0" damping_rot="0.10000000149011612" friction_z="1.0" lock_trans_x="False" physics_type="STATIC" lock_trans_z="False" velocity_max="0.0" name="Cube.001" anisotropic_friction="False" lock_trans_y="False" lock_rot_y="False" actor="False" ghost="False" />
       </node>
     </node>
     <node name="Lamp" >
-      <position y="5.903862" x="4.076245" z="-1.005454" />
-      <rotation qx="0.169076" qz="-0.272171" qy="0.755880" qw="0.570947" />
-      <scale y="1.000000" x="1.000000" z="1.000000" />
+      <position x="4.076245" z="-1.005454" y="5.903862" />
+      <rotation qx="0.169076" qy="0.755880" qz="-0.272171" qw="0.570947" />
+      <scale x="1.000000" z="1.000000" y="1.000000" />
       <game >
         <sensors />
         <actuators />
       </game>
-      <light shadow="true" powerScale="1.0" type="point" name="Lamp" >
-        <position y="5.903862" x="4.076245" z="-1.005454" />
-        <lightAttenuation linear="0.03333335240683057" constant="1.0" range="5000" quadratic="0.0" />
-        <colourDiffuse g="1.0" b="1.0" r="1.0" />
-        <colourSpecular g="1.0" b="1.0" r="1.0" />
-        <colourShadow g="1.0" b="1.0" r="1.0" />
+      <light shadow="true" name="Lamp" powerScale="1.0" type="point" >
+        <position x="4.076245" z="-1.005454" y="5.903862" />
+        <lightAttenuation range="5000" linear="0.03333335240683057" constant="1.0" quadratic="0.0" />
+        <colourDiffuse r="1.0" b="1.0" g="1.0" />
+        <colourSpecular r="1.0" b="1.0" g="1.0" />
+        <colourShadow r="1.0" b="1.0" g="1.0" />
       </light>
     </node>
     <node name="Camera" >
-      <position y="41.652210" x="7.481132" z="6.507640" />
-      <rotation qx="0.655220" qz="-0.146199" qy="0.038152" qw="0.740173" />
-      <scale y="1.000000" x="1.000000" z="1.000000" />
+      <position x="3.354110" z="8.718610" y="31.305599" />
+      <rotation qx="0.657310" qy="0.049090" qz="-0.136498" qw="0.739529" />
+      <scale x="1.000000" z="1.000000" y="1.000000" />
       <game >
         <sensors />
         <actuators />
       </game>
-      <camera projectionType="perspective" fov="0.5033799435163735" name="Camera" >
-        <clipping near="0.10000000149011612" far="100.0" farPlaneDist="100.0" nearPlaneDist="0.10000000149011612" />
+      <camera fov="0.5033799435163735" projectionType="perspective" name="Camera" >
+        <clipping farPlaneDist="100.0" near="0.10000000149011612" nearPlaneDist="0.10000000149011612" far="100.0" />
       </camera>
     </node>
   </nodes>
   <externals >
     <item type="material" >
-      <file name="E:\downloads\testArmature\materialMesh.material" />
+      <file name="C:\Users\mackk.ECS\Desktop\a3csc165-M3\materialMesh.material" />
     </item>
   </externals>
   <environment >
-    <colourAmbient g="0.0" b="0.0" r="0.0" />
-    <colourBackground g="0.05087608844041824" b="0.05087608844041824" r="0.05087608844041824" />
-    <colourDiffuse g="0.05087608844041824" b="0.05087608844041824" r="0.05087608844041824" />
+    <colourBackground r="0.05087608844041824" b="0.05087608844041824" g="0.05087608844041824" />
+    <colourDiffuse r="0.05087608844041824" b="0.05087608844041824" g="0.05087608844041824" />
+    <colourAmbient r="0.0" b="0.0" g="0.0" />
   </environment>
 </scene>

@@ -3,17 +3,12 @@ package a3.kmap165Engine.network;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.UUID;
-
-import a3.kmap165Engine.npc.NPCcontroller;
 import sage.networking.server.GameConnectionServer;
 import sage.networking.server.IClientInfo;
 //import graphicslib3D.Matrix3D;
 import graphicslib3D.Vector3D;
 
 public class GameServerTCP extends GameConnectionServer<UUID> {
-
-	private NPCcontroller npcCtrl;
-	
 	public GameServerTCP(int localPort) throws IOException {
 		super(localPort, ProtocolType.TCP);
 	}
@@ -153,37 +148,7 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 	}
 
 	public void sendNPCinfo() {
-		String msg = new String("");
-		String[] messageTokens = msg.split(",");
-		for (int i = 0; i < npcCtrl.getNumOfNPCs(); i++)
-		{
-			try
-			{
-				String message = new String("mnpc," + Integer.toString(i));
-				message += "," + (npcCtrl.getNPC(i)).getX();
-				message += "," + (npcCtrl.getNPC(i)).getY();
-				message += "," + (npcCtrl.getNPC(i)).getZ();
-				sendPacketToAll(message);
-				
-				
-			if (messageTokens[0].compareTo("needNPC") == 0)
-			{
-				// hey hey hey
-			}
-			if (messageTokens[0].compareTo("colide")==0)
-			{
-				// hey hey hey
-			}
-			} catch (Exception zzz)
-			{
-				zzz.printStackTrace();
-			}
-		}
-
-	}
-
-	public void sendCheckForAvatarNear() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

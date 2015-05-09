@@ -94,6 +94,7 @@ import sage.model.loader.ogreXML.*;
 import sage.scene.Model3DTriMesh;
 //import com.jme.scene.state.TextureState;
 import sage.event.*;
+import sage.animation.Joint;
 
 public class FightingGame extends BaseGame implements KeyListener {
 	private Camera3Pcontroller c0c, c1c, c2c;
@@ -373,24 +374,43 @@ public class FightingGame extends BaseGame implements KeyListener {
 		addGameWorldObject(playerOne);
 
 	}
-
+   private void initJoints(){
+      for (Joint joint : playerOne.getJoints()){ //initialize the matrix that moves the parent’s axes to this joint’s axes
+         float [] initialRot = joint.getInitialRotation(); //data from model file
+         float [] initialTrans = joint.getInitialTranslation() ; //data from model file
+         Matrix3D mat = new Matrix3D();
+         mat.translate(initialTrans[0], initialTrans [1], initialTrans [2]);
+         mat.rotateZ(initialRot[2]); //rotate order is significant; this is the order
+         mat.rotateY(initialRot[1]); // assumed by MS3D
+         mat.rotateX(initialRot[0]);
+         joint.setFromParentSpace(mat);
+         //initialize the matrix that moves the world (model) axes all the way to this joint’s axes
+         if (!joint.hasParentJoint()){ //there is no parent joint; the from-Model-Space transform is just the local transform
+            Matrix3D mat1 = new Matrix3D(joint.getFromParentSpace().getValues());
+            joint.setFromModelSpace(mat1);
+         } 
+         else{ //set this joint's from-model-space transform to be the concatenation of the parent's
+               // from-model-space transform with this joint's from-parent-space transform
+            Joint parentJoint = joint.getParent();
+            Matrix3D mat2 = new Matrix3D(parentJoint.getFromModelSpace().getValues());
+            mat2.concatenate(joint.getFromParentSpace());
+            joint.setFromModelSpace(mat2);
+         }
+      }
+   }
 	private void createPlayers() {
 		initOgre();
-
-		/*
-		 * Texture playerOneTexture = TextureManager.loadTexture2D(
-		 * "src/a3/kmap165Engine/external_models/albertUV.png");
-		 * playerOneTexture.setApplyMode
-		 * (sage.texture.Texture.ApplyMode.Replace); playerOneTextureState =
-		 * (TextureState);
-		 * 
-		 * getDisplaySystem().getRenderer().createRenderState(RenderState.
-		 * RenderStateType.Texture);
-		 * playerOneTextureState.setTexture(playerOneTexture,0);
-		 * playerOneTextureState.setEnabled(true);
-		 * 
-		 * playerOne.setRenderState(playerOneTextureState);
-		 */
+      initJoints();
+		
+		 Texture playerOneTexture = TextureManager.loadTexture2D("src/a3/kmap165Engine/external_models/albertUV.png");
+		 playerOneTexture.setApplyMode
+		 (sage.texture.Texture.ApplyMode.Replace);
+        
+       playerOneTextureState =(TextureState)getDisplaySystem().getRenderer().createRenderState(RenderState.
+		 RenderStateType.Texture);
+		 playerOneTextureState.setTexture(playerOneTexture,0);
+		 playerOneTextureState.setEnabled(true);
+		 playerOne.setRenderState(playerOneTextureState);
 
 		playerOne.updateRenderStates();
 
@@ -1058,16 +1078,6 @@ public class FightingGame extends BaseGame implements KeyListener {
 		System.out.println("i'm being called!");
 		this.addGameWorldObject(avatar);
 
-	}
-	
-	public void addNPC(GhostNPC npc)
-	{
-		this.addGameWorldObject(npc);
-	}
-	
-	public void removeNPC(GhostNPC npc)
-	{
-		this.removeGameWorldObject(npc);
 	}
 
 	public void removeNode(GhostAvatar avatar) {

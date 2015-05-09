@@ -27,12 +27,12 @@ public class PunchAction extends AbstractInputAction {
 
 	public void performAction(float time, Event e) {
 		s.stopAnimation();
-		s.startAnimation("Punch_Animation");
-
+		s.startAnimation("Punch_Animation_Updated");
+      s.stopAnimation();
 		System.out.println("Punch");
 
 		// s.updateWorldBound();
 		// client.sendMoveMessage(s.getLocalTranslation().getCol(3));
-		s.startAnimation("Idle_Stance");
+		//s.startAnimation("Idle_Stance_Updated");
 	}
 }

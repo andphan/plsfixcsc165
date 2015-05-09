@@ -27,12 +27,12 @@ public class BlockAction extends AbstractInputAction {
 
 	public void performAction(float time, Event e) {
 		s.stopAnimation();
-		s.startAnimation("blockAnimation");
+		s.startAnimation("Block_Animation_Updated");
 
 		System.out.println("Block");
 
 		s.updateWorldBound();
 		// client.sendMoveMessage(s.getLocalTranslation().getCol(3));
-		s.startAnimation("Idle_Stance");
+		//s.startAnimation("Idle_Stance_Updated");
 	}
 }
