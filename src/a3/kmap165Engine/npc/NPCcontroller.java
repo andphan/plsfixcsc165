@@ -92,7 +92,7 @@ public class NPCcontroller {
 	}
 
 	public int getNumOfNPCs() {
-		// TODO Auto-generated method stub
+		
 		return numNPCs;
 	}
 

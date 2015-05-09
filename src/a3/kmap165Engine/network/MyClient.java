@@ -122,6 +122,11 @@ public class MyClient extends GameConnectionClient {
 		}
 		
 		// npcMope
+		if (messageTokens[0].compareTo("npcmope") == 0)
+		{
+			int ghostID = Integer.parseInt(messageTokens[1]);
+			
+		}
 		// npcAttack
 	}
 
