@@ -375,7 +375,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 
 	}
    private void initJoints(){
-      for (Joint joint : playerOne.getJoints()){ //initialize the matrix that moves the parent’s axes to this joint’s axes
+  /*    for (Joint joint : playerOne.getJoints()){ //initialize the matrix that moves the parent’s axes to this joint’s axes
          float [] initialRot = joint.getInitialRotation(); //data from model file
          float [] initialTrans = joint.getInitialTranslation() ; //data from model file
          Matrix3D mat = new Matrix3D();
@@ -397,10 +397,11 @@ public class FightingGame extends BaseGame implements KeyListener {
             joint.setFromModelSpace(mat2);
          }
       }
+      */
    }
 	private void createPlayers() {
 		initOgre();
-      initJoints();
+   //   initJoints();
 		
 		 Texture playerOneTexture = TextureManager.loadTexture2D("src/a3/kmap165Engine/external_models/albertUV.png");
 		 playerOneTexture.setApplyMode
