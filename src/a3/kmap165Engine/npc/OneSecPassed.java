@@ -1,14 +1,14 @@
 package a3.kmap165Engine.npc;
 
 import sage.ai.behaviortrees.BTCondition;
-
+import a3.kmap165Engine.network.ghost_avatar.*;
 public class OneSecPassed extends BTCondition {
 
 	NPCcontroller npcc;
-	NPC npc;
+	GhostNPC npc;
 	long lastUpdateTime;
 
-	public OneSecPassed(NPCcontroller c, NPC n, boolean toNegate) {
+	public OneSecPassed(NPCcontroller c, GhostNPC n, boolean toNegate) {
 		super(toNegate);
 		npcc = c;
 		npc = n;

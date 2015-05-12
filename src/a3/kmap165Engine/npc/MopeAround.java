@@ -2,12 +2,13 @@ package a3.kmap165Engine.npc;
 
 import sage.ai.behaviortrees.BTAction;
 import sage.ai.behaviortrees.BTStatus;
+import a3.kmap165Engine.network.ghost_avatar.*;
 
 public class MopeAround extends BTAction {
 
-	NPC npc;
+	GhostNPC npc;
 
-	public MopeAround(NPC n) {
+	public MopeAround(GhostNPC n) {
 		npc = n;
 	}
 

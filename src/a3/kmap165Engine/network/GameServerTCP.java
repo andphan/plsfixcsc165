@@ -15,7 +15,8 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
    private String ghostNPC_ID = "1";
 	public GameServerTCP(int localPort) throws IOException {
 		super(localPort, ProtocolType.TCP);
-      npcCtrl = new NPCcontroller(); 
+      npcCtrl = new NPCcontroller(this/*, null*/);
+      npcCtrl.startNPCControl(); 
 	}
 
 	public void acceptClient(IClientInfo ci, Object o) { // override
@@ -49,6 +50,13 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 				UUID clientID = UUID.fromString(messageTokens[1]);
 				String[] ghostPosition = { messageTokens[2], messageTokens[3],
 						messageTokens[4] };
+                  
+            Vector3D ghostPosition3D = new Vector3D(
+					Double.parseDouble(messageTokens[2]),
+					Double.parseDouble(messageTokens[3]),
+					Double.parseDouble(messageTokens[4]));
+            //npcCtrl.setPlayerLocation(ghostPosition3D);
+            //npcCtrl.startNPCControl();    
 				System.out.println("create obtained");
 				sendCreateMessages(clientID, ghostPosition);
 				sendWantsDetailsMessages(clientID);
@@ -71,7 +79,7 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 				UUID clientID = UUID.fromString(messageTokens[2]);
 				String[] pos = { messageTokens[3], messageTokens[4],
 						messageTokens[5] };
-				System.out.println("dsfr obtained");
+				//System.out.println("dsfr obtained");
 				sndDetailsMsg(clientID, remoteID, pos);
 			}
 			if (messageTokens[0].compareTo("move") == 0) { // receive “move”
@@ -79,7 +87,7 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 				UUID clientID = UUID.fromString(messageTokens[1]);
 				String[] pos = { messageTokens[2], messageTokens[3],
 						messageTokens[4] };
-				// System.out.println("move obtained");
+				//System.out.println("move obtained");
 				sendMoveMessages(clientID, pos);
 			}
 			if (messageTokens[0].compareTo("mnpc") == 0) { // receive “move”

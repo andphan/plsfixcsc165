@@ -100,7 +100,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 	private Camera3Pcontroller c0c, c1c, c2c;
 	// adding Scripting stuff
 	private ScriptEngine engine;
-	private String sName = "src/a3/games/fighter2015/TestScriptColor.js";
+	private String sName = "./a3/games/fighter2015/TestScriptColor.js";
 	private File scriptFile;
 
 	// test
@@ -182,7 +182,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 		initOgre();
 		initPhysicsSystem();
 		createSagePhysicsWorld();
-		initInput();
+		
 		try {
 			thisClient = new MyClient(InetAddress.getByName(serverAddress),
 					serverPort, serverProtocol, this);
@@ -194,6 +194,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 		if (thisClient != null) {
 			thisClient.sendJoinMessage();
 		}
+      initInput();
 		// playerOne.startAnimation("Idle_Stance");
 	}
 
@@ -311,21 +312,21 @@ public class FightingGame extends BaseGame implements KeyListener {
 		skybox = new SkyBox("SkyBox", 100.0f, 100.0f, 100.0f);
 
 		Texture northTex = TextureManager
-				.loadTexture2D("src/a3/images/heightMapTest.JPG");
+				.loadTexture2D("./a3/images/heightMapTest.JPG");
 		Texture southTex = TextureManager
-				.loadTexture2D("src/a3/images/heightMapTest.JPG");
+				.loadTexture2D("./a3/images/heightMapTest.JPG");
 		Texture eastTex = TextureManager
-				.loadTexture2D("src/a3/images/lotTest.jpg");
+				.loadTexture2D("./a3/images/lotTest.jpg");
 		Texture westTex = TextureManager
-				.loadTexture2D("src/a3/images/lotTest.jpg");
-		Texture upTex = TextureManager.loadTexture2D("src/a3/images/clouds.jpg");
+				.loadTexture2D("./a3/images/lotTest.jpg");
+		Texture upTex = TextureManager.loadTexture2D("./a3/images/clouds.jpg");
 		Texture downTex = TextureManager
-				.loadTexture2D("src/a3/images/lot_floor.jpg");
+				.loadTexture2D("./a3/images/lot_floor.jpg");
 		Texture testTerr = TextureManager
-				.loadTexture2D("src/a3/images/squaresquare.bmp");
+				.loadTexture2D("./a3/images/squaresquare.bmp");
 
 		Texture testMountain = TextureManager
-				.loadTexture2D("src/a3/images/mountains512.jpg");
+				.loadTexture2D("./a3/images/mountains512.jpg");
 
 		skybox.setTexture(SkyBox.Face.North, northTex);
 		skybox.setTexture(SkyBox.Face.South, southTex);
@@ -347,9 +348,9 @@ public class FightingGame extends BaseGame implements KeyListener {
 		try {
 			model = loader
 					.loadModel(
-							"src/a3/kmap165Engine/external_models/avatar/Cube.001.mesh.xml",
-							"src/a3/kmap165Engine/external_models/avatar/materialMesh.material",
-							"src/a3/kmap165Engine/external_models/avatar/Cube.001.skeleton.xml");
+							"./a3/kmap165Engine/external_models/avatar/Cube.001.mesh.xml",
+							"./a3/kmap165Engine/external_models/avatar/materialMesh.material",
+							"./a3/kmap165Engine/external_models/avatar/Cube.001.skeleton.xml");
 			model.updateGeometricState(0, true);
 			java.util.Iterator<SceneNode> modelIterator = model.iterator();
 			playerOne = (Model3DTriMesh) modelIterator.next();
@@ -402,7 +403,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 		initOgre();
       //initJoints();
 		
-		 Texture playerOneTexture = TextureManager.loadTexture2D("src/a3/kmap165Engine/external_models/albertUV.png");
+		 Texture playerOneTexture = TextureManager.loadTexture2D("./a3/kmap165Engine/external_models/albertUV.png");
 		 playerOneTexture.setApplyMode
 		 (sage.texture.Texture.ApplyMode.Replace);
         
@@ -418,7 +419,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 		playerOne.updateLocalBound();
 		playerOne.updateGeometricState(0, true);
 
-		addGameWorldObject(playerOne);
+		//addGameWorldObject(playerOne);
 
 		camera1 = new JOGLCamera(renderer);
 		camera1.setPerspectiveFrustum(60, 1, 1, 1000);
@@ -524,7 +525,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 			// objloader will take it.
 
 			// fightingRingTriMesh =
-			// loader.loadModel("src/a3/kmap165Engine/external_models/fightingRing.obj");
+			// loader.loadModel("./a3/kmap165Engine/external_models/fightingRing.obj");
 
 		} catch (Exception e11) {
 			e11.printStackTrace();
@@ -698,7 +699,6 @@ public class FightingGame extends BaseGame implements KeyListener {
 		// c0c.update(elapsedTimeMS);
 		c1c.update(elapsedTimeMS);
 		// c2c.update(elapsedTimeMS);
-		
 		playerOne.updateAnimation(elapsedTimeMS);
 		if (thisClient != null)
 			thisClient.processPackets();
@@ -773,83 +773,83 @@ public class FightingGame extends BaseGame implements KeyListener {
 	private void createRing() {
 		// Creates the base of the fighting ring and uv-wraps it to a texure.
 		TriMesh fightingRing = objectLoader
-				.loadModel("src/a3/kmap165Engine/external_models/fighting_ring/fightingRing_Pad.obj");
+				.loadModel("./a3/kmap165Engine/external_models/fighting_ring/fightingRing_Pad.obj");
 
 		Texture fightingRing_Filled = TextureManager
-				.loadTexture2D("src/a3/kmap165Engine/external_models/texture/fightingRing_Pad_Filled.jpg");
+				.loadTexture2D("./a3/kmap165Engine/external_models/texture/fightingRing_Pad_Filled.jpg");
 		fightingRing.setTexture(fightingRing_Filled);
 
 		// Creates the four fighting ring posts and uv-wraps them to a texure.
 		Texture fightingRingPost_Filled = TextureManager
-				.loadTexture2D("src/a3/kmap165Engine/external_models/texture/RingPole_Filled.jpg");
+				.loadTexture2D("./a3/kmap165Engine/external_models/texture/RingPole_Filled.jpg");
 
 		TriMesh fightingRingPost1 = objectLoader
-				.loadModel("src/a3/kmap165Engine/external_models/fighting_ring/fightingRingPost1.obj");
+				.loadModel("./a3/kmap165Engine/external_models/fighting_ring/fightingRingPost1.obj");
 		fightingRingPost1.setTexture(fightingRingPost_Filled);
 
 		TriMesh fightingRingPost2 = objectLoader
-				.loadModel("src/a3/kmap165Engine/external_models/fighting_ring/fightingRingPost2.obj");
+				.loadModel("./a3/kmap165Engine/external_models/fighting_ring/fightingRingPost2.obj");
 		fightingRingPost2.setTexture(fightingRingPost_Filled);
 
 		TriMesh fightingRingPost3 = objectLoader
-				.loadModel("src/a3/kmap165Engine/external_models/fighting_ring/fightingRingPost3.obj");
+				.loadModel("./a3/kmap165Engine/external_models/fighting_ring/fightingRingPost3.obj");
 		fightingRingPost3.setTexture(fightingRingPost_Filled);
 
 		TriMesh fightingRingPost4 = objectLoader
-				.loadModel("src/a3/kmap165Engine/external_models/fighting_ring/fightingRingPost4.obj");
+				.loadModel("./a3/kmap165Engine/external_models/fighting_ring/fightingRingPost4.obj");
 		fightingRingPost4.setTexture(fightingRingPost_Filled);
 
 		// Creates the twelve fighting ring post strings and uv-wraps them to a
 		// texure.
 		Texture ringBoundaryString_Filled = TextureManager
-				.loadTexture2D("src/a3/kmap165Engine/external_models/texture/String_Filled.jpg");
+				.loadTexture2D("./a3/kmap165Engine/external_models/texture/String_Filled.jpg");
 
 		TriMesh ringBoundaryString1 = objectLoader
-				.loadModel("src/a3/kmap165Engine/external_models/fighting_ring/ringBoundaryString1.obj");
+				.loadModel("./a3/kmap165Engine/external_models/fighting_ring/ringBoundaryString1.obj");
 		ringBoundaryString1.setTexture(ringBoundaryString_Filled);
 
 		TriMesh ringBoundaryString2 = objectLoader
-				.loadModel("src/a3/kmap165Engine/external_models/fighting_ring/ringBoundaryString2.obj");
+				.loadModel("./a3/kmap165Engine/external_models/fighting_ring/ringBoundaryString2.obj");
 		ringBoundaryString2.setTexture(ringBoundaryString_Filled);
 
 		TriMesh ringBoundaryString3 = objectLoader
-				.loadModel("src/a3/kmap165Engine/external_models/fighting_ring/ringBoundaryString3.obj");
+				.loadModel("./a3/kmap165Engine/external_models/fighting_ring/ringBoundaryString3.obj");
 		ringBoundaryString3.setTexture(ringBoundaryString_Filled);
 
 		TriMesh ringBoundaryString4 = objectLoader
-				.loadModel("src/a3/kmap165Engine/external_models/fighting_ring/ringBoundaryString4.obj");
+				.loadModel("./a3/kmap165Engine/external_models/fighting_ring/ringBoundaryString4.obj");
 		ringBoundaryString4.setTexture(ringBoundaryString_Filled);
 
 		TriMesh ringBoundaryString5 = objectLoader
-				.loadModel("src/a3/kmap165Engine/external_models/fighting_ring/ringBoundaryString5.obj");
+				.loadModel("./a3/kmap165Engine/external_models/fighting_ring/ringBoundaryString5.obj");
 		ringBoundaryString5.setTexture(ringBoundaryString_Filled);
 
 		TriMesh ringBoundaryString6 = objectLoader
-				.loadModel("src/a3/kmap165Engine/external_models/fighting_ring/ringBoundaryString6.obj");
+				.loadModel("./a3/kmap165Engine/external_models/fighting_ring/ringBoundaryString6.obj");
 		ringBoundaryString6.setTexture(ringBoundaryString_Filled);
 
 		TriMesh ringBoundaryString7 = objectLoader
-				.loadModel("src/a3/kmap165Engine/external_models/fighting_ring/ringBoundaryString7.obj");
+				.loadModel("./a3/kmap165Engine/external_models/fighting_ring/ringBoundaryString7.obj");
 		ringBoundaryString7.setTexture(ringBoundaryString_Filled);
 
 		TriMesh ringBoundaryString8 = objectLoader
-				.loadModel("src/a3/kmap165Engine/external_models/fighting_ring/ringBoundaryString8.obj");
+				.loadModel("./a3/kmap165Engine/external_models/fighting_ring/ringBoundaryString8.obj");
 		ringBoundaryString8.setTexture(ringBoundaryString_Filled);
 
 		TriMesh ringBoundaryString9 = objectLoader
-				.loadModel("src/a3/kmap165Engine/external_models/fighting_ring/ringBoundaryString9.obj");
+				.loadModel("./a3/kmap165Engine/external_models/fighting_ring/ringBoundaryString9.obj");
 		ringBoundaryString9.setTexture(ringBoundaryString_Filled);
 
 		TriMesh ringBoundaryString10 = objectLoader
-				.loadModel("src/a3/kmap165Engine/external_models/fighting_ring/ringBoundaryString10.obj");
+				.loadModel("./a3/kmap165Engine/external_models/fighting_ring/ringBoundaryString10.obj");
 		ringBoundaryString10.setTexture(ringBoundaryString_Filled);
 
 		TriMesh ringBoundaryString11 = objectLoader
-				.loadModel("src/a3/kmap165Engine/external_models/fighting_ring/ringBoundaryString11.obj");
+				.loadModel("./a3/kmap165Engine/external_models/fighting_ring/ringBoundaryString11.obj");
 		ringBoundaryString11.setTexture(ringBoundaryString_Filled);
 
 		TriMesh ringBoundaryString12 = objectLoader
-				.loadModel("src/a3/kmap165Engine/external_models/fighting_ring/ringBoundaryString12.obj");
+				.loadModel("./a3/kmap165Engine/external_models/fighting_ring/ringBoundaryString12.obj");
 		ringBoundaryString12.setTexture(ringBoundaryString_Filled);
 
 		Group ringGroup1 = new Group(); // fighting ring system position
@@ -1059,7 +1059,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 	private void initTerrain() {
 
 		ImageBasedHeightMap myHeightMap = new ImageBasedHeightMap(
-				"src/a3/images/mountains512.jpg");
+				"./a3/images/mountains512.jpg");
 		/*
 		 * HillHeightMap myHeightMap = new HillHeightMap(129, 2000, 5.0f, 20.0f,
 		 * (byte)2, 12345); myHeightMap.setHeightScale(0.1f);
@@ -1067,7 +1067,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 		hillTerr = createTerBlock(myHeightMap);
 		TextureState groundState;
 		Texture floorTexture = TextureManager
-				.loadTexture2D("src/a3/images/lot_floor.jpg");
+				.loadTexture2D("./a3/images/lot_floor.jpg");
 		floorTexture.setApplyMode(sage.texture.Texture.ApplyMode.Replace);
 		hillTerr.setTexture(floorTexture);
 
@@ -1088,13 +1088,9 @@ public class FightingGame extends BaseGame implements KeyListener {
 	}
 
    public void addNPC(GhostNPC newNPC){
-      System.out.println("add npc is being called!");
+      System.out.println("addnode is being called!");
 		this.addGameWorldObject(newNPC);
    }
-   public void removeNPC(GhostNPC newNPC){
-	      System.out.println("remove npc is being called!");
-			this.removeGameWorldObject(newNPC);
-	   }
 	protected void initPhysicsSystem() {
 		String engine = "sage.physics.JBullet.JBulletPhysicsEngine";
 		physicsEngine = PhysicsEngineFactory.createPhysicsEngine(engine);

@@ -17,14 +17,16 @@ public class NPCcontroller {
 	private long lastUpdateTime;
 	private long startTime;
 	private GameServerTCP server;
-	private NPC npc;
-	private GhostNPC npC;
+	private GhostNPC npc;
 	private boolean nearFlag;
 	private GhostNPC[] NPClist = new GhostNPC[1];
 	private int numNPCs = 1;
+   private Vector3D playerSpot;
    //private Vector<GhostNPC> ghostNPCs;
    
-   public NPCcontroller(){
+   public NPCcontroller(GameServerTCP serveThis/*, Vector3D playerLoc*/){
+      server = serveThis;
+      //playerSpot = playerLoc;
    }
    
 	public void startNPCControl() {
@@ -32,13 +34,16 @@ public class NPCcontroller {
 		startTime = System.nanoTime();
 		lastUpdateTime = startTime;
 		setupNPC();
+      nearFlag = false;
 		setupBehaviorTree();
 		npcLoop();
 	}
-
+   public void setPlayerLocation(Vector3D playerLocation){
+      this.playerSpot = playerLocation;
+   }
 	public void setupNPC() {
-		npC = new GhostNPC(1, new Vector3D(50,1,80));
-      NPClist[0] = npC;
+		npc = new GhostNPC(1, new Vector3D(50.0,1.0,80.0)/*, playerSpot*/);
+      NPClist[0] = npc;
 		/*try {
 		Point3D newPoint = new Point3D(50, 0, 80);
 		npc.randomizeLocation(newPoint.getX(), newPoint.getZ());
@@ -69,6 +74,8 @@ public class NPCcontroller {
 		for (int i = 0; i < numNPCs; i++)
 		{
 			NPClist[i].updateLocation();
+         //if(NPClist[i].isClose()) setNearFlag(true);
+         //else setNearFlag(false);
 		}
 	}
 	public void setupBehaviorTree() {
@@ -81,7 +88,6 @@ public class NPCcontroller {
 	}
 
 	public boolean getNearFlag() {
-		// TODO Auto-generated method stub
 		return nearFlag;
 	}
 
@@ -90,13 +96,14 @@ public class NPCcontroller {
 	}
 	public GhostNPC getNPC(int i) {
 		//GhostNPC nz = new GhostNPC();
-		for (int x = 0; x < NPClist.length; x++)
+		for (int x = 0; x <= NPClist.length; x++)
 		{
+         //System.out.println(NPClist[0]);
          if(x == i) return NPClist[x];
 			//NPClist[x] = nz;
 			//i++;
 		}
-		return NPClist[i];
+		return null;
 	}
 	public int getNumOfNPCs() {
 		// TODO Auto-generated method stub
