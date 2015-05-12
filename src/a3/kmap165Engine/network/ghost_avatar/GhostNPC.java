@@ -13,17 +13,18 @@ import a3.kmap165Engine.npc.NPC;
 
 public class GhostNPC extends TriMesh {
 
-	Cube body;
-	int id;
-	Vector3D position;
-	private Rectangle rect;
 	
+	private Rectangle body;
+	int id;
+	private Vector3D position;
 	public GhostNPC(int id, Vector3D pos)
 	{
 		this.id = id;
-		this.body = new Cube(Integer.toString(id));
+		this.body = new Rectangle(Integer.toString(id));
 		setPosition(pos);
 		body.updateWorldBound();
+		System.out.println(this.body);
+		
 	}
 	
 	public void setPosition(Vector3D pos)

@@ -698,6 +698,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 		// c0c.update(elapsedTimeMS);
 		c1c.update(elapsedTimeMS);
 		// c2c.update(elapsedTimeMS);
+		
 		playerOne.updateAnimation(elapsedTimeMS);
 		if (thisClient != null)
 			thisClient.processPackets();
@@ -1087,9 +1088,13 @@ public class FightingGame extends BaseGame implements KeyListener {
 	}
 
    public void addNPC(GhostNPC newNPC){
-      System.out.println("removenode is being called!");
-		this.removeGameWorldObject(newNPC);
+      System.out.println("add npc is being called!");
+		this.addGameWorldObject(newNPC);
    }
+   public void removeNPC(GhostNPC newNPC){
+	      System.out.println("remove npc is being called!");
+			this.removeGameWorldObject(newNPC);
+	   }
 	protected void initPhysicsSystem() {
 		String engine = "sage.physics.JBullet.JBulletPhysicsEngine";
 		physicsEngine = PhysicsEngineFactory.createPhysicsEngine(engine);

@@ -12,7 +12,7 @@ public class NPC extends Cube{
 	public NPC()
 	{
       location = new Point3D();
-		this.localTranslation = new Matrix3D();
+		this.localTranslation = new Matrix3D();s
 	}
 	
 	
