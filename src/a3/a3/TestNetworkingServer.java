@@ -34,8 +34,6 @@ public class TestNetworkingServer {
 			npcCtrl.setupNPC();
 //			npcLoop();			
 			System.out.println("test networking server called");
-
-		 TCPServer = new GameServerTCP(8065);
 		
 		} catch (IOException e) {
 			e.printStackTrace();
