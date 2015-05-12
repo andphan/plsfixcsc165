@@ -1,7 +1,7 @@
 package a3.kmap165Engine.npc;
 
 import sage.scene.shape.Cube;
-import sage.scene.shape.Rectangle;
+//import sage.scene.shape.Rectangle;
 import graphicslib3D.Matrix3D;
 import graphicslib3D.Point3D;
 
