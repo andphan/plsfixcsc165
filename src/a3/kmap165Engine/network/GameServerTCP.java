@@ -15,7 +15,7 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
    private String ghostNPC_ID = "1";
 	public GameServerTCP(int localPort) throws IOException {
 		super(localPort, ProtocolType.TCP);
-      npcCtrl = NPCcontroller(); 
+      npcCtrl = new NPCcontroller(); 
 	}
 
 	public void acceptClient(IClientInfo ci, Object o) { // override

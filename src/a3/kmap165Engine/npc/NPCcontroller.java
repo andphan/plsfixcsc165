@@ -17,7 +17,8 @@ public class NPCcontroller {
 	private long lastUpdateTime;
 	private long startTime;
 	private GameServerTCP server;
-	private GhostNPC npc;
+	private NPC npc;
+	private GhostNPC npC;
 	private boolean nearFlag;
 	private GhostNPC[] NPClist = new GhostNPC[1];
 	private int numNPCs = 1;
@@ -36,8 +37,8 @@ public class NPCcontroller {
 	}
 
 	public void setupNPC() {
-		npc = new GhostNPC(1, new Vector3D(50,1,80));
-      NPClist[0] = npc;
+		npC = new GhostNPC(1, new Vector3D(50,1,80));
+      NPClist[0] = npC;
 		/*try {
 		Point3D newPoint = new Point3D(50, 0, 80);
 		npc.randomizeLocation(newPoint.getX(), newPoint.getZ());
