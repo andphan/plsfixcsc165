@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import sage.model.loader.OBJLoader;
 import sage.scene.TriMesh;
+import sage.scene.shape.Cube;
 import sage.scene.shape.Rectangle;
 import graphicslib3D.Matrix3D;
 import graphicslib3D.Vector3D;
@@ -12,20 +13,17 @@ import a3.kmap165Engine.npc.NPC;
 
 public class GhostNPC extends TriMesh {
 
-	NPC body;
+	Cube body;
 	int id;
 	Vector3D position;
 	private Rectangle rect;
 	
-	
 	public GhostNPC(int id, Vector3D pos)
 	{
 		this.id = id;
-		this.body = new NPC();
-		rect = new Rectangle();
-		// testing with rectangle to see if the object will even translate
-		
-		
+		this.body = new Cube(Integer.toString(id));
+		setPosition(pos);
+		body.updateWorldBound();
 	}
 	
 	public void setPosition(Vector3D pos)
@@ -38,6 +36,25 @@ public class GhostNPC extends TriMesh {
 	{
 		return position;
 	}
+   public void updateLocation()
+	{
+		position.setX(this.getX());
+		position.setY(this.getY());
+		position.setZ(this.getZ());
+		
+	}
+   public double getX()
+	{
+		return position.getX();
+	}
+	public double getY()
+	{
+		return position.getY();
+	}
+	public double getZ()
+	{
+		return position.getZ();
+	}
 
 	public int getNPCID() {
 		return id;
@@ -45,15 +62,6 @@ public class GhostNPC extends TriMesh {
 
 	public void setNPCid(int d) {
 		this.id = d;
-	}
-	
-	public void npcThrow()
-	{
-		body.throwPowerUps();
-	}
-	public void npcMopeAround()
-	{
-		body.mopeAround();
 	}
 	
 }

@@ -374,8 +374,8 @@ public class FightingGame extends BaseGame implements KeyListener {
 		addGameWorldObject(playerOne);
 
 	}
-   private void initJoints(){
-  /*    for (Joint joint : playerOne.getJoints()){ //initialize the matrix that moves the parent’s axes to this joint’s axes
+   /*private void initJoints(){
+      for (Joint joint : playerOne.getJoints()){ //initialize the matrix that moves the parent’s axes to this joint’s axes
          float [] initialRot = joint.getInitialRotation(); //data from model file
          float [] initialTrans = joint.getInitialTranslation() ; //data from model file
          Matrix3D mat = new Matrix3D();
@@ -397,11 +397,10 @@ public class FightingGame extends BaseGame implements KeyListener {
             joint.setFromModelSpace(mat2);
          }
       }
-      */
-   }
+   }*/
 	private void createPlayers() {
 		initOgre();
-   //   initJoints();
+      //initJoints();
 		
 		 Texture playerOneTexture = TextureManager.loadTexture2D("src/a3/kmap165Engine/external_models/albertUV.png");
 		 playerOneTexture.setApplyMode
@@ -1080,21 +1079,17 @@ public class FightingGame extends BaseGame implements KeyListener {
 		this.addGameWorldObject(avatar);
 
 	}
-	public void addNPC(GhostNPC npc)
-	{
-		this.addGameWorldObject(npc);
-	}
-	
-	public void removeNPC(GhostNPC npc)
-	{
-		this.removeGameWorldObject(npc);
-	}
+
 	public void removeNode(GhostAvatar avatar) {
 		// TODO Auto-generated method stub
 		System.out.println("removenode is being called!");
 		this.removeGameWorldObject(avatar);
 	}
 
+   public void addNPC(GhostNPC newNPC){
+      System.out.println("removenode is being called!");
+		this.removeGameWorldObject(newNPC);
+   }
 	protected void initPhysicsSystem() {
 		String engine = "sage.physics.JBullet.JBulletPhysicsEngine";
 		physicsEngine = PhysicsEngineFactory.createPhysicsEngine(engine);

@@ -1,9 +1,14 @@
 package a3.kmap165Engine.npc;
 
+import graphicslib3D.Point3D;
+
+import graphicslib3D.Vector3D;
+
 import java.util.Random;
 
 import sage.ai.behaviortrees.*;
 import a3.kmap165Engine.network.*;
+import a3.kmap165Engine.network.ghost_avatar.*;
 
 public class NPCcontroller {
 
@@ -12,11 +17,15 @@ public class NPCcontroller {
 	private long lastUpdateTime;
 	private long startTime;
 	private GameServerTCP server;
-	private NPC npc;
+	private GhostNPC npc;
 	private boolean nearFlag;
-	private NPC[] NPClist = new NPC[3];
-	private int numNPCs = 3;
-
+	private GhostNPC[] NPClist = new GhostNPC[1];
+	private int numNPCs = 1;
+   //private Vector<GhostNPC> ghostNPCs;
+   
+   public NPCcontroller(){
+   }
+   
 	public void startNPCControl() {
 		bt = new BehaviorTree(BTCompositeType.SELECTOR);
 		startTime = System.nanoTime();
@@ -27,8 +36,16 @@ public class NPCcontroller {
 	}
 
 	public void setupNPC() {
-		npc = new NPC();
-		npc.randomizeLocation(rn.nextInt(100), rn.nextInt(100));
+		npc = new GhostNPC(1, new Vector3D(50,1,80));
+      NPClist[0] = npc;
+		/*try {
+		Point3D newPoint = new Point3D(50, 0, 80);
+		npc.randomizeLocation(newPoint.getX(), newPoint.getZ());
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}*/
 	}
 
 	public void npcLoop() {
@@ -70,12 +87,13 @@ public class NPCcontroller {
 	public void setNearFlag(boolean b) {
 		nearFlag = b; // test
 	}
-	public NPC getNPC(int i) {
-		NPC nz = new NPC();
+	public GhostNPC getNPC(int i) {
+		//GhostNPC nz = new GhostNPC();
 		for (int x = 0; x < NPClist.length; x++)
 		{
-			NPClist[x] = nz;
-			i++;
+         if(x == i) return NPClist[x];
+			//NPClist[x] = nz;
+			//i++;
 		}
 		return NPClist[i];
 	}

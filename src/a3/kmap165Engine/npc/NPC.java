@@ -1,15 +1,17 @@
 package a3.kmap165Engine.npc;
 
+import sage.scene.shape.Cube;
+import sage.scene.shape.Rectangle;
 import graphicslib3D.Matrix3D;
 import graphicslib3D.Point3D;
 
-public class NPC {
+public class NPC extends Cube{
 	
 	Point3D location;
 	private Matrix3D localTranslation;
-	
 	public NPC()
 	{
+      location = new Point3D();
 		this.localTranslation = new Matrix3D();
 	}
 	
@@ -42,9 +44,9 @@ public class NPC {
 	{
 		System.out.println("powerups throwing");
 	}
-	public void randomizeLocation(int nextInt, int nextInt2) {
-		this.location.setX(nextInt);
-		this.location.setZ(nextInt2);
+	public void randomizeLocation(double d, double e) {
+		this.location.setX(d);
+		this.location.setZ(e);
 		
 	}
 	public void setLocalTranslation(Matrix3D trans) {

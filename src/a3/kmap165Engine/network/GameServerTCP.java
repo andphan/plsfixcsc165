@@ -12,8 +12,10 @@ import graphicslib3D.Vector3D;
 
 public class GameServerTCP extends GameConnectionServer<UUID> {
 	private NPCcontroller npcCtrl;
+   private String ghostNPC_ID = "1";
 	public GameServerTCP(int localPort) throws IOException {
 		super(localPort, ProtocolType.TCP);
+      npcCtrl = NPCcontroller(); 
 	}
 
 	public void acceptClient(IClientInfo ci, Object o) { // override
@@ -50,7 +52,18 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 				System.out.println("create obtained");
 				sendCreateMessages(clientID, ghostPosition);
 				sendWantsDetailsMessages(clientID);
+            sendCreateNPCMessages(clientID, ghostNPC_ID, ghostPosition);
+            sendNPCinfo();
 			}
+			/*if (messageTokens[0].compareTo("createNPC") == 0) { // receive “create”
+				// format: createNPC,localid, ghostNPC_id,x,y,z
+				UUID clientID = UUID.fromString(messageTokens[1]);
+				String[] ghostPosition = { messageTokens[2], messageTokens[3],
+						messageTokens[4] };
+				System.out.println("create NPC obtained");
+				//sendCreateNPCMessages(clientID, ghostNPC_ID, ghostPosition);
+				sendNPCinfo();
+			}*/
 			if (messageTokens[0].compareTo("dsfr") == 0) { // receive “details
 															// for”
 				// format: dsfr,remoteid,localid,x,y,z
@@ -69,6 +82,15 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 				// System.out.println("move obtained");
 				sendMoveMessages(clientID, pos);
 			}
+			if (messageTokens[0].compareTo("mnpc") == 0) { // receive “move”
+				// format: move,localid,x,y,z //look up sender name
+				UUID clientID = UUID.fromString(messageTokens[1]);
+				String[] pos = { messageTokens[2], messageTokens[3],
+						messageTokens[4] };
+				// System.out.println("move obtained");
+				sendNPCmoveMessages(clientID, pos);
+			}
+	
 		}
 	}
 
@@ -86,7 +108,20 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 			e.printStackTrace();
 		}
 	}
-
+	public void sendCreateNPCMessages(UUID clientID, String ghostNPC_ID, String[] position) {
+		// format: create, remoteId, x, y, z
+		try {
+			String message = new String("createNPC," + clientID.toString());
+         message += "," + ghostNPC_ID;
+			message += "," + position[0];
+			message += "," + position[1];
+			message += "," + position[2];
+			//System.out.println("LPK " + message);
+			sendPacket(message, clientID);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	public void sendCreateMessages(UUID clientID, String[] position) {
 		// format: create, remoteId, x, y, z
 		try {
@@ -138,7 +173,19 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 			e.printStackTrace();
 		}
 	}
-
+	public void sendNPCmoveMessages(UUID clientID, String[] position) {
+		// format: create, remoteId, x, y, z
+		try {
+			String message = new String("mnpc," + clientID.toString());
+			message += "," + position[0];
+			message += "," + position[1];
+			message += "," + position[2];
+			// System.out.println(message);
+			sendPacketToAll(message);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	public void sendByeMessages(UUID clientID) {
 		// format: bye, remoteID
 		try {
@@ -151,8 +198,7 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 	}
 
 	public void sendNPCinfo() {
-		String msg = new String("");
-		String[] messageTokens = msg.split(",");
+
 		for (int i = 0; i < npcCtrl.getNumOfNPCs(); i++)
 		{
 			try
@@ -162,22 +208,11 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 				message += "," + (npcCtrl.getNPC(i)).getY();
 				message += "," + (npcCtrl.getNPC(i)).getZ();
 				sendPacketToAll(message);
-				
-				
-			if (messageTokens[0].compareTo("needNPC") == 0)
-			{
-				// hey hey hey
-			}
-			if (messageTokens[0].compareTo("collide")==0)
-			{
-				// hey hey hey
-				
-				
-			}
 			} catch (Exception zzz)
 			{
 				zzz.printStackTrace();
 			}
 		}
 	}
+	
 }
