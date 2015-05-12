@@ -14,6 +14,7 @@ public class NPC extends Cube{
 	{
       location = new Point3D();
 		this.localTranslation = new Matrix3D();
+		//herihiehir
 	}
 	
 	
