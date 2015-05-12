@@ -9,6 +9,7 @@ public class NPC extends Cube{
 	
 	Point3D location;
 	private Matrix3D localTranslation;
+	private String str;
 	public NPC()
 	{
       location = new Point3D();
@@ -16,6 +17,11 @@ public class NPC extends Cube{
 	}
 	
 	
+	public NPC(String string) {
+		str = string;
+	}
+
+
 	public double getX()
 	{
 		return location.getX();

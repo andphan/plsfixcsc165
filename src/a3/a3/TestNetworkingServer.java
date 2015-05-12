@@ -7,9 +7,9 @@ import java.io.IOException;
 
 public class TestNetworkingServer {
 	
-	private NPCcontroller npcCtrl;
-	private long startTime;
-	private long lastUpdateTime;
+	static private NPCcontroller npcCtrl;
+	static private long startTime;
+	static private long lastUpdateTime;
    static private GameServerTCP TCPServer;
 	public TestNetworkingServer(int id) throws IOException
 	{
@@ -17,7 +17,7 @@ public class TestNetworkingServer {
 		lastUpdateTime = startTime;
 		npcCtrl = new NPCcontroller();
 		//GameServerTCP testTCPServer = new GameServerTCP(8080);
-		
+		TCPServer = new GameServerTCP(8065);
 		npcCtrl.setupNPC();
 		npcLoop();
 		
@@ -26,6 +26,15 @@ public class TestNetworkingServer {
 	
 	public static void main(String[] args) throws IOException {
 		try {
+			startTime = System.nanoTime();
+			lastUpdateTime = startTime;
+			npcCtrl = new NPCcontroller();
+			//GameServerTCP testTCPServer = new GameServerTCP(8080);
+			TCPServer = new GameServerTCP(8065);
+			npcCtrl.setupNPC();
+//			npcLoop();			
+			System.out.println("test networking server called");
+
 		 TCPServer = new GameServerTCP(8065);
 		
 		} catch (IOException e) {
@@ -34,7 +43,7 @@ public class TestNetworkingServer {
 	}
 	
 	
-	public void npcLoop()
+	public static void npcLoop()
 	{
 		while (true)
 		{

@@ -11,19 +11,19 @@ import graphicslib3D.Vector3D;
 import a3.kmap165Engine.network.MyClient;
 import a3.kmap165Engine.npc.NPC;
 
-public class GhostNPC extends TriMesh {
+public class GhostNPC extends Cube {
 
 	
-	private Rectangle body;
+	private NPC body;
 	int id;
 	private Vector3D position;
+	private Matrix3D ghostMatrix;
 	public GhostNPC(int id, Vector3D pos)
 	{
 		this.id = id;
-		this.body = new Rectangle(Integer.toString(id));
+		this.body = new NPC(Integer.toString(id));
 		setPosition(pos);
-		body.updateWorldBound();
-		System.out.println(this.body);
+
 		
 	}
 	
