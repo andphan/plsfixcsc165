@@ -20,7 +20,7 @@ public class NPCcontroller {
 	private NPC npc;
 	private GhostNPC npC;
 	private boolean nearFlag;
-	private GhostNPC[] NPClist = new GhostNPC[1];
+	private NPC[] NPClist = new NPC[1];
 	private int numNPCs = 1;
    //private Vector<GhostNPC> ghostNPCs;
    
@@ -37,9 +37,20 @@ public class NPCcontroller {
 	}
 
 	public void setupNPC() {
-		npC = new GhostNPC(1, new Vector3D(50,1,80));
-      NPClist[0] = npC;
-		/*try {
+		npc = new NPC();
+      NPClist[0] = npc;
+      if ( NPClist[0] != null)
+      {
+    	  
+      
+      System.out.println("setup npc creates npc " + npc);
+		npc.randomizeLocation(30, 50);
+      }
+      else
+      {
+    	  System.out.println("npc is not setup");
+      }
+      /*try {
 		Point3D newPoint = new Point3D(50, 0, 80);
 		npc.randomizeLocation(newPoint.getX(), newPoint.getZ());
 		}
@@ -88,7 +99,7 @@ public class NPCcontroller {
 	public void setNearFlag(boolean b) {
 		nearFlag = b; // test
 	}
-	public GhostNPC getNPC(int i) {
+	public NPC getNPC(int i) {
 		//GhostNPC nz = new GhostNPC();
 		for (int x = 0; x < NPClist.length; x++)
 		{

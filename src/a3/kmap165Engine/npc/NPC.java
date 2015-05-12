@@ -9,13 +9,19 @@ public class NPC extends Cube{
 	
 	Point3D location;
 	private Matrix3D localTranslation;
+	private String str;
 	public NPC()
 	{
       location = new Point3D();
-		this.localTranslation = new Matrix3D();s
+		this.localTranslation = new Matrix3D();
 	}
 	
 	
+	public NPC(String string) {
+		str = string;
+	}
+
+
 	public double getX()
 	{
 		return location.getX();
