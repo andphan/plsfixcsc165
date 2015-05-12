@@ -15,7 +15,7 @@ public class TestNetworkingServer {
 	{
 		startTime = System.nanoTime();
 		lastUpdateTime = startTime;
-		npcCtrl = new NPCcontroller();
+		//npcCtrl = new NPCcontroller();
 		//GameServerTCP testTCPServer = new GameServerTCP(8080);
 		
 		npcCtrl.setupNPC();
