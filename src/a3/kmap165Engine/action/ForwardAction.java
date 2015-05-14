@@ -43,7 +43,7 @@ public class ForwardAction extends AbstractInputAction {
 	}
 
 	private void updateVerticalPosition() {
-		Point3D avLoc = new Point3D(s.getLocalTranslation().getCol(3));
+		Point3D avLoc = new Point3D(sM.getCol(3));
 		float x = (float) avLoc.getX();
 		float z = (float) avLoc.getZ();
 		float tHeight = terrain.getHeight(x, z);

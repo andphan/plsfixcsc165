@@ -115,4 +115,8 @@ public class Camera3Pcontroller {
 	public Point3D getLocation() {
 		return cam.getLocation();
 	}
+   
+   public float getAzimuth(){
+      return cameraAzimuth;
+   }
 }

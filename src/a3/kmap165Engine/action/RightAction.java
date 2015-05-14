@@ -37,7 +37,7 @@ public class RightAction extends AbstractInputAction {
 		s.updateGeometricState((double) time, false);
 
 		// s.getWorldBound().computeFromPoints(s.getVertexBuffer());
-
+      //System.out.println(client);
 		if (client != null)
 			client.sendMoveMessage(sM.getCol(3));
 	}

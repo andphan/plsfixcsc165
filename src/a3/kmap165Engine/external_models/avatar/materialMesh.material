@@ -32,7 +32,7 @@ material materialMesh
 
             texture_unit 
             {
-                texture ./a3/kmap165Engine/external_models/albertUV.jpg
+                texture ./a3/kmap165Engine/external_models/avatar/albertUV.png
                 tex_address_mode wrap
                 scale 1.0 1.0
                 colour_op modulate

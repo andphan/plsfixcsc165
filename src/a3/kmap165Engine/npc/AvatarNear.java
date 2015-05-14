@@ -2,15 +2,16 @@ package a3.kmap165Engine.npc;
 
 import graphicslib3D.Point3D;
 import a3.kmap165Engine.network.GameServerTCP;
+import a3.kmap165Engine.network.ghost_avatar.*;
 import sage.ai.behaviortrees.BTCondition;
 
 public class AvatarNear extends BTCondition {
 
 	GameServerTCP server;
 	NPCcontroller npcc;
-	NPC npc;
+	GhostNPC npc;
 
-	public AvatarNear(GameServerTCP s, NPCcontroller c, NPC n, boolean toNegate) {
+	public AvatarNear(GameServerTCP s, NPCcontroller c, GhostNPC n, boolean toNegate) {
 		super(toNegate);
 		server = s;
 		npcc = c;

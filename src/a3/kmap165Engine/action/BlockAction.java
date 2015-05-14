@@ -13,6 +13,9 @@ import sage.terrain.TerrainBlock;
 import a3.kmap165Engine.network.*;
 import sage.scene.Model3DTriMesh;
 
+import sage.audio.*;
+import com.jogamp.openal.ALFactory;
+
 public class BlockAction extends AbstractInputAction {
 	private Model3DTriMesh s;
 	private Matrix3D sM;
@@ -27,8 +30,7 @@ public class BlockAction extends AbstractInputAction {
 
 	public void performAction(float time, Event e) {
 		s.stopAnimation();
-		s.startAnimation("Block_Animation_Updated");
-
+		s.startAnimation("Block_Animation");
 		System.out.println("Block");
 
 		s.updateWorldBound();

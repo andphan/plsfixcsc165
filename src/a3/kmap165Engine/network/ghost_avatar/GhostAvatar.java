@@ -29,7 +29,7 @@ public class GhostAvatar extends TriMesh {
 		 */
 
 		Matrix3D theMeshS = theMesh.getLocalScale();
-		theMeshS.scale(.3, 0.3, .3);
+		theMeshS.scale(.75, 0.75, .75);
 		setLocalScale(theMeshS);
 
 		ghostID = ID;
@@ -37,8 +37,8 @@ public class GhostAvatar extends TriMesh {
 		theClient = client;
 
 		ghostMatrix = this.getLocalTranslation();
-		ghostMatrix.translate(ghostPosition.getX() + 20.0,
-				ghostPosition.getY(), ghostPosition.getZ() + 20.0);
+		ghostMatrix.translate(ghostPosition.getX() + 10.0,
+				ghostPosition.getY(), ghostPosition.getZ() + 10.0);
 
 		setLocalTranslation(ghostMatrix);
 
@@ -71,12 +71,12 @@ public class GhostAvatar extends TriMesh {
 		// ghostMatrix.setCol(3, gV);
 		// System.out.println(gV);
 		newGhostMatrix = new Matrix3D();
-		// currentGhostMatrix = ghostMatrix.getLocalTranslation();
+		//currentGhostMatrix = ghostMatrix.getLocalTranslation();
 
 		newGhostMatrix.translate(gV.getX(), gV.getY(), gV.getZ());
-		// currentGhostMatrix.concatenate(newGhostMatrix);
+		//currentGhostMatrix.concatenate(newGhostMatrix);
 		// System.out.println(" 7778" + ghostMatrix);
-		// setLocalTranslation(currentGhostMatrix);
+		//setLocalTranslation(currentGhostMatrix);
 		setLocalTranslation(newGhostMatrix);
 		updateLocalBound();
 		updateWorldBound();

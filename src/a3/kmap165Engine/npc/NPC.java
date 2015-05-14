@@ -1,7 +1,7 @@
 package a3.kmap165Engine.npc;
 
 import sage.scene.shape.Cube;
-// import sage.scene.shape.Rectangle;
+import sage.scene.shape.Rectangle;
 import graphicslib3D.Matrix3D;
 import graphicslib3D.Point3D;
 
@@ -9,20 +9,13 @@ public class NPC extends Cube{
 	
 	Point3D location;
 	private Matrix3D localTranslation;
-	private String str;
 	public NPC()
 	{
       location = new Point3D();
 		this.localTranslation = new Matrix3D();
-		//herihiehirVREFVSVVerggr
 	}
 	
 	
-	public NPC(String string) {
-		str = string;
-	}
-
-
 	public double getX()
 	{
 		return location.getX();
