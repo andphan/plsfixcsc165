@@ -30,7 +30,7 @@ public class BlockAction extends AbstractInputAction {
 
 	public void performAction(float time, Event e) {
 		s.stopAnimation();
-		s.startAnimation("blockAnimation");
+		s.startAnimation("Block_Animation");
 		System.out.println("Block");
 
 		s.updateWorldBound();

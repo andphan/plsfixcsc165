@@ -36,6 +36,8 @@ public class LeftAction extends AbstractInputAction {
 		s.updateLocalBound();
 		s.updateGeometricState((double) time, false);
 
+		s.stopAnimation();
+		s.startAnimation("Kicked_Action");
 		// s.getWorldBound().computeFromPoints(s.getVertexBuffer());
      // System.out.println(client);
 		if (client != null)

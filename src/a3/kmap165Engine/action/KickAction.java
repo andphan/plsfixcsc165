@@ -32,7 +32,7 @@ public class KickAction extends AbstractInputAction {
 	public void performAction(float time, Event e) {
 		s.stopAnimation();
       kickSwooshSound.play();
-		s.startAnimation("Kick_Animation");
+		s.startAnimation("Block_Animation");
       //s.stopAnimation();
 		System.out.println("Kick");
 

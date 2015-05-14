@@ -37,6 +37,9 @@ public class BackwardAction extends AbstractInputAction {
 		// System.out.println(client);
 		if (client != null)
 			client.sendMoveMessage(sM.getCol(3));
+		
+		s.stopAnimation();
+		s.startAnimation("KnockedOut_Animation");
 	}
 
 	private void updateVerticalPosition() {
