@@ -13,10 +13,11 @@ import graphicslib3D.Vector3D;
 public class GameServerTCP extends GameConnectionServer<UUID> {
 	private NPCcontroller npcCtrl;
    private String ghostNPC_ID = "1";
+   Vector3D playerPosition3D = new Vector3D();
 	public GameServerTCP(int localPort) throws IOException {
 		super(localPort, ProtocolType.TCP);
-      npcCtrl = new NPCcontroller(this/*, null*/);
-      npcCtrl.startNPCControl(); 
+      npcCtrl = new NPCcontroller(this);
+       
 	}
 
 	public void acceptClient(IClientInfo ci, Object o) { // override
@@ -60,7 +61,12 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 				System.out.println("create obtained");
 				sendCreateMessages(clientID, ghostPosition);
 				sendWantsDetailsMessages(clientID);
+            
             sendCreateNPCMessages(clientID, ghostNPC_ID, ghostPosition);
+            playerPosition3D = ghostPosition3D; 
+            npcCtrl.setPlayerSpot(ghostPosition3D);
+            npcCtrl.startNPCControl();
+            
             sendNPCinfo();
 			}
 			/*if (messageTokens[0].compareTo("createNPC") == 0) { // receive “create”
@@ -206,7 +212,6 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 	}
 
 	public void sendNPCinfo() {
-
 		for (int i = 0; i < npcCtrl.getNumOfNPCs(); i++)
 		{
 			try
@@ -222,5 +227,10 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 			}
 		}
 	}
-	
+	public void sendCheckForAvatarNear(Vector3D position) {
+      if(Math.abs(position.getX() - playerPosition3D.getX()) <= 5 &&
+         Math.abs(position.getZ() - playerPosition3D.getZ()) <= 5) npcCtrl.setNearFlag(true);
+      else npcCtrl.setNearFlag(false); 
+	}
+
 }

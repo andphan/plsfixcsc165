@@ -231,7 +231,7 @@ public class MyClient extends GameConnectionClient {
 	}
 	private void createGhostNPC(int id, Vector3D position)
 	{
-		GhostNPC newNPC = new GhostNPC(id, position/*, game.getPlayerPosition()*/);
+		GhostNPC newNPC = new GhostNPC(id, position, game.getPlayerPosition());
 		ghostNPCs.add(newNPC);
 		game.addNPC(newNPC);
 		System.out.println("NPC being called");

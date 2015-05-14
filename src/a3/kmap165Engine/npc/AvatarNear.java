@@ -1,6 +1,7 @@
 package a3.kmap165Engine.npc;
 
 import graphicslib3D.Point3D;
+import graphicslib3D.Vector3D;
 import a3.kmap165Engine.network.GameServerTCP;
 import a3.kmap165Engine.network.ghost_avatar.*;
 import sage.ai.behaviortrees.BTCondition;
@@ -19,8 +20,8 @@ public class AvatarNear extends BTCondition {
 	}
 
 	protected boolean check() {
-		// Point3D npcP = new Point3D(npc.getX(), npc.getY(), npc.getZ());
-		// server.send
+		Vector3D npcV = new Vector3D(npc.getX(), npc.getY(), npc.getZ());
+		server.sendCheckForAvatarNear(npcV);
 
 		return npcc.getNearFlag();
 	}

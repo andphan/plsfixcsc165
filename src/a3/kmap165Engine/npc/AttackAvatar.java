@@ -13,7 +13,7 @@ public class AttackAvatar extends BTAction {
 	}
 
 	protected BTStatus update(float time) {
-		npc.attackAvatar();
+		npc.approachAvatar();
 		return BTStatus.BH_SUCCESS;
 	}
 

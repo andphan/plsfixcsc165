@@ -24,9 +24,9 @@ public class NPCcontroller {
    private Vector3D playerSpot;
    //private Vector<GhostNPC> ghostNPCs;
    
-   public NPCcontroller(GameServerTCP serveThis/*, Vector3D playerLoc*/){
+   public NPCcontroller(GameServerTCP serveThis){
       server = serveThis;
-      //playerSpot = playerLoc;
+      nearFlag = false;
    }
    
 	public void startNPCControl() {
@@ -34,7 +34,7 @@ public class NPCcontroller {
 		startTime = System.nanoTime();
 		lastUpdateTime = startTime;
 		setupNPC();
-      nearFlag = false;
+      
 		setupBehaviorTree();
 		npcLoop();
 	}
@@ -42,7 +42,7 @@ public class NPCcontroller {
       this.playerSpot = playerLocation;
    }
 	public void setupNPC() {
-		npc = new GhostNPC(1, new Vector3D(50.0,1.0,80.0)/*, playerSpot*/);
+		npc = new GhostNPC(1, new Vector3D(70.0,2.0,50.0), playerSpot);
       NPClist[0] = npc;
 		/*try {
 		Point3D newPoint = new Point3D(50, 0, 80);
@@ -81,18 +81,22 @@ public class NPCcontroller {
 	public void setupBehaviorTree() {
 		bt.insertAtRoot(new BTSequence(10));
 		bt.insertAtRoot(new BTSequence(20));
+      bt.insertAtRoot(new BTSequence(30));
 		bt.insert(10, new OneSecPassed(this, npc, false));
 		bt.insert(10, new MopeAround(npc));
 		bt.insert(20, new AvatarNear(server, this, npc, false));
 		bt.insert(20, new AttackAvatar(npc));
+  //    bt.insert(30, new AvatarFar(server, this, npc, false));
+	//	bt.insert(30, new ApproachAvatar(npc));
 	}
-
+   public void setPlayerSpot(Vector3D pos){
+      playerSpot = pos;
+   }
 	public boolean getNearFlag() {
 		return nearFlag;
 	}
-
-	public void setNearFlag(boolean b) {
-		nearFlag = b; // test
+   public void setNearFlag(boolean nearFlag) {
+		this.nearFlag = nearFlag;
 	}
 	public GhostNPC getNPC(int i) {
 		//GhostNPC nz = new GhostNPC();
