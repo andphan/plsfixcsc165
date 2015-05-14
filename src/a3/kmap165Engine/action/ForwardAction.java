@@ -29,10 +29,10 @@ public class ForwardAction extends AbstractInputAction {
 	public void performAction(float time, Event e) {
 		s.stopAnimation();
 		s.startAnimation("Idle_Animation");
-		sM.translate(0, 0, -0.1f);
-		s.setLocalTranslation(sM);
+	//	sM.translate(0, 0, -0.1f);
+	//	s.setLocalTranslation(sM);
 
-		updateVerticalPosition();
+	//	updateVerticalPosition();
 
 		s.updateWorldBound();
 		s.updateLocalBound();

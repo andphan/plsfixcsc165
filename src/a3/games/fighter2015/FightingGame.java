@@ -371,12 +371,12 @@ public class FightingGame extends BaseGame implements KeyListener {
       crowdSound.initialize(audioMgr);
 
       crowdSound.setMaxDistance(50.0f);
-      crowdSound.setMinDistance(300.0f);
-      crowdSound.setRollOff(500.0f);
+      crowdSound.setMinDistance(5.0f);
+      crowdSound.setRollOff(3.0f);
       crowdSound.setLocation(new Point3D(chest.getWorldTranslation().getCol(3)));
       
       setEarParameters();
-     // crowdSound.play();
+      crowdSound.play();
    }
    public void setEarParameters(){
       Matrix3D avDir = (Matrix3D) (playerOne.getWorldRotation().clone());
@@ -441,8 +441,9 @@ public class FightingGame extends BaseGame implements KeyListener {
          playerOne.setWorldTranslation(playerOneT);
 
 			Matrix3D playerOneR = playerOne.getLocalRotation();
-			playerOneR.rotateX(90.0);
+			playerOneR.rotateX(270.0);
 			playerOneR.rotateY(180);
+			playerOneR.rotateZ(180);
 			playerOne.setLocalRotation(playerOneR);
          playerOne.setWorldRotation(playerOneR);
          
