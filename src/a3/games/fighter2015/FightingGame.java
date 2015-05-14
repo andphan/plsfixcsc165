@@ -436,12 +436,14 @@ public class FightingGame extends BaseGame implements KeyListener {
 			playerOne = (Model3DTriMesh) modelIterator.next();
 
 			Matrix3D playerOneT = playerOne.getLocalTranslation();
-			playerOneT.translate(30, 0, 50);
+			playerOneT.translate(30, 20, 50);
 			playerOne.setLocalTranslation(playerOneT);
          playerOne.setWorldTranslation(playerOneT);
 
 			Matrix3D playerOneR = playerOne.getLocalRotation();
-			playerOneR.rotateX(180.0);
+			playerOneR.rotateY(180.0);
+			playerOneR.rotateX(90.0);
+			
 			playerOne.setLocalRotation(playerOneR);
          playerOne.setWorldRotation(playerOneR);
          

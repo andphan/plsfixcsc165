@@ -27,6 +27,8 @@ public class ForwardAction extends AbstractInputAction {
 	}
 
 	public void performAction(float time, Event e) {
+		s.stopAnimation();
+		s.startAnimation("Idle_Stance");
 		sM.translate(0, 0, -0.1f);
 		s.setLocalTranslation(sM);
 
@@ -35,7 +37,10 @@ public class ForwardAction extends AbstractInputAction {
 		s.updateWorldBound();
 		s.updateLocalBound();
 		s.updateGeometricState((double) time, false);
-
+		
+		
+		
+		
 		// s.getWorldBound().computeFromPoints(s.getVertexBuffer());
 		// System.out.println(client);
 		if (client != null)
