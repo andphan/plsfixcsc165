@@ -94,6 +94,11 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 				String[] pos = { messageTokens[2], messageTokens[3],
 						messageTokens[4] };
 				//System.out.println("move obtained");
+            Vector3D ghostPosition = new Vector3D(
+					Double.parseDouble(messageTokens[2]),
+					Double.parseDouble(messageTokens[3]),
+					Double.parseDouble(messageTokens[4]));
+            npcCtrl.setPlayerSpot(ghostPosition);
 				sendMoveMessages(clientID, pos);
 			}
 			if (messageTokens[0].compareTo("mnpc") == 0) { // receive “move”
@@ -125,8 +130,8 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 	public void sendCreateNPCMessages(UUID clientID, String ghostNPC_ID, String[] position) {
 		// format: create, remoteId, x, y, z
 		try {
-			String message = new String("createNPC," + clientID.toString());
-         message += "," + ghostNPC_ID;
+			String message = new String("createNPC"/* + clientID.toString()*/);
+         //message += "," + ghostNPC_ID;
 			message += "," + position[0];
 			message += "," + position[1];
 			message += "," + position[2];
@@ -212,20 +217,20 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 	}
 
 	public void sendNPCinfo() {
-		for (int i = 0; i < npcCtrl.getNumOfNPCs(); i++)
-		{
+		//for (int i = 0; i < npcCtrl.getNumOfNPCs(); i++)
+		//{
 			try
 			{
-				String message = new String("mnpc," + Integer.toString(i));
-				message += "," + (npcCtrl.getNPC(i)).getX();
-				message += "," + (npcCtrl.getNPC(i)).getY();
-				message += "," + (npcCtrl.getNPC(i)).getZ();
+				String message = new String("mnpc"/* + Integer.toString(i)*/);
+				message += "," + (npcCtrl.getNPC(/*i*/)).getX();
+				message += "," + (npcCtrl.getNPC(/*i*/)).getY();
+				message += "," + (npcCtrl.getNPC(/*i*/)).getZ();
 				sendPacketToAll(message);
 			} catch (Exception zzz)
 			{
 				zzz.printStackTrace();
 			}
-		}
+		//}
 	}
 	public void sendCheckForAvatarNear(Vector3D position) {
       if(Math.abs(position.getX() - playerPosition3D.getX()) <= 5 &&

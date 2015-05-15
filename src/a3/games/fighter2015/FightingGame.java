@@ -159,6 +159,37 @@ public class FightingGame extends BaseGame implements KeyListener {
    private IAudioManager audioMgr;
    private Sound punchSwooshSound, punchHitSound, kickSwooshSound, kickHitSound, crowdSound;
     
+   // creating flags
+    private boolean p1isPunching, p1isKicking, p1isBlocking, p2isPunching, p2isKicking, p2isBlocking, p1LosesTrade, p2LosesTrade,
+    p1WinsTrade, p2WinsTrade, p1isNeutral, p2isNeutral; 
+    
+    /*
+     * PUNCHING
+     * if p1 throws a punch and p2 is not doing anything then p1 hits
+     * 		p1ispunching = true;
+     * 		
+     * if p1 throws a punch and p2 is pressing punch == parry? 
+     * if p1 throws a punch and p2 is pressing kick = p2 kick wins
+     * if p1 throws a punch and p2 is pressing block = bounce back
+
+     *  KICKING
+     * if p1 throws a kick and p2 is not doing anything then p1 hits
+     * if p1 throws a kick and p2 is pressing punch == kick wins
+     * if p1 throws a kick and p2 is pressing kick = parry or mini game
+     * if p1 throws a kick and p2 is pressing block = bounce back no damage
+     
+     
+     * BLOCKING
+     * if p1 press block and p2 is not doing anything then nothing happens
+     * if p1 press block and p2 is pressing punch == block wins = no damage
+     * if p1 press block and p2 is pressing kick = bounce back but no damage
+     * if p1 press block and p2 is pressing block = put on ippo music
+     * 
+
+ 
+     */
+   
+   
 	public FightingGame(String serverAddr, int sPort) throws IOException {
 		super();
 		this.serverAddress = serverAddr;
@@ -376,7 +407,7 @@ public class FightingGame extends BaseGame implements KeyListener {
       crowdSound.setLocation(new Point3D(chest.getWorldTranslation().getCol(3)));
       
       setEarParameters(); // okay
-      crowdSound.play();
+  //    crowdSound.play();
    }
    public void setEarParameters(){
       Matrix3D avDir = (Matrix3D) (playerOne.getWorldRotation().clone());
