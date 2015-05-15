@@ -27,19 +27,16 @@ public class BackwardAction extends AbstractInputAction {
 	}
 
 	public void performAction(float time, Event e) {
-	//	sM.translate(0, 0, 0.1f);
-	//	s.setLocalTranslation(sM);
+		sM.translate(0, 0, 0.1f);
+		s.setLocalTranslation(sM);
 
 		s.updateWorldBound();
 		s.updateLocalBound();
 		s.updateGeometricState((double) time, false);
-	//	updateVerticalPosition();
+		updateVerticalPosition();
 		// System.out.println(client);
 		if (client != null)
 			client.sendMoveMessage(sM.getCol(3));
-		
-		s.stopAnimation();
-		s.startAnimation("KnockedOut_Animation");
 	}
 
 	private void updateVerticalPosition() {

@@ -22,7 +22,7 @@ public class GhostNPC extends TriMesh {
 	private OBJLoader objectLoader = new OBJLoader();
    private TriMesh theMesh;
    
-	public GhostNPC(int id, Vector3D pos, Vector3D playerPos)
+	public GhostNPC(/*int id,*/ Vector3D pos, Vector3D playerPos)
 	{
       theMesh = objectLoader
 				.loadModel("./a3/kmap165Engine/external_models/albertTestMesh.obj");
@@ -33,7 +33,7 @@ public class GhostNPC extends TriMesh {
 		theMeshS.scale(.75, 0.75, .75);
 		setLocalScale(theMeshS);
       
-		this.id = id;
+		//this.id = id;
 		//this.body = new Cube(Integer.toString(id));
       position = pos;
 		setPosition(pos);
@@ -46,6 +46,11 @@ public class GhostNPC extends TriMesh {
 		Matrix3D trans = new Matrix3D();
 		trans.translate(pos.getX(), pos.getY(), pos.getZ());
 		this.setLocalTranslation(trans);
+      
+      updateLocalBound();
+		updateWorldBound();
+      //System.out.println("FF");
+      
 	}
 	public Vector3D returnPosition()
 	{
@@ -56,7 +61,9 @@ public class GhostNPC extends TriMesh {
 		position.setX(this.getX());
 		position.setY(this.getY());
 		position.setZ(this.getZ());
-		
+      
+      setPosition(position);
+      
 	}
    /*public boolean isClose(){
       if(Math.abs(position.getX() - playerPosition.getX()) <= 5 &&
@@ -87,16 +94,27 @@ public class GhostNPC extends TriMesh {
 	public void setHeading(int heading) {
 		this.heading = heading;
 	}
-	public int getNPCID() {
+	/*public int getNPCID() {
 		return id;
 	}
 
 	public void setNPCid(int d) {
 		this.id = d;
-	}
+	}*/
+
 	public void mopeAround()
 	{
 		System.out.println("moping around");
+      setHeading(180 + (int) Math.toDegrees(Math.atan2(getZ() - playerPosition.getZ() , getX() - playerPosition.getX())));
+      System.out.println( playerPosition.getZ());
+      Matrix3D npcM = this.getLocalTranslation();
+      npcM.translate((Math.cos(Math.toRadians((double) getHeading()))), 0, (Math.sin(Math.toRadians((double) getHeading()))));
+      this.setLocalTranslation(npcM);
+      //setPosition(new Vector3D(-1.0,-1.0,0.0));
+      //setPosition(npcM.getCol(3));
+      //setPosition(new Vector3D(-1.0,-1.0,0.0));
+      System.out.println(getLocalTranslation());
+      updateLocation();
 	}
 	public void throwPowerUps()
 	{
@@ -106,6 +124,9 @@ public class GhostNPC extends TriMesh {
 		System.out.println("attacking avatar");
 		
 	}
+   public void setPlayerPosition(Vector3D kd){
+      playerPosition = kd;
+   }
    public void approachAvatar() {
 		System.out.println("approaching avatar");
 		setHeading(180 + (int) Math.toDegrees(Math.atan2(getZ() - playerPosition.getZ(), getX() - playerPosition.getX())));

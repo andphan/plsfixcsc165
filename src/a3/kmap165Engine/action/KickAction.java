@@ -33,7 +33,7 @@ public class KickAction extends AbstractInputAction {
 		s.stopAnimation();
       kickSwooshSound.play();
 		s.startAnimation("Kick_Animation");
-      // s.stopAnimation();
+      //s.stopAnimation();
 		System.out.println("Kick");
 
 		// s.updateWorldBound();

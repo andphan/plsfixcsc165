@@ -12,7 +12,7 @@ public class MopeAround extends BTAction {
 		npc = n;
 	}
 
-	protected BTStatus update(float time) {
+	protected BTStatus update(float time) {   
 		npc.mopeAround();
 		return BTStatus.BH_SUCCESS;
 	}

@@ -27,17 +27,15 @@ public class RightAction extends AbstractInputAction {
 	}
 
 	public void performAction(float time, Event e) {
-	//	sM.translate(0.1f, 0, 0);
-	//	s.setLocalTranslation(sM);
+		sM.translate(0.1f, 0, 0);
+		s.setLocalTranslation(sM);
 
-	//	updateVerticalPosition();
+		updateVerticalPosition();
 
 		s.updateWorldBound();
 		s.updateLocalBound();
 		s.updateGeometricState((double) time, false);
 
-		s.stopAnimation();
-		s.startAnimation("Punched_Action");
 		// s.getWorldBound().computeFromPoints(s.getVertexBuffer());
       //System.out.println(client);
 		if (client != null)
