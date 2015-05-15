@@ -23,17 +23,18 @@ public class PunchAction extends AbstractInputAction {
 	private MyClient client;
 	private TerrainBlock terrain;
    private Sound punchSwooshSound;
-   //private FightingGame myGame;
+   private FightingGame myGame;
 
-	public PunchAction(Model3DTriMesh n, MyClient thisClient, /*FightingGame game, */Sound thePunchSwooshSound) {
+	public PunchAction(Model3DTriMesh n, MyClient thisClient, FightingGame game, Sound thePunchSwooshSound) {
 		s = n;
 		sM = s.getLocalTranslation();
 		client = thisClient;
-      //myGame = game;
+      myGame = game;
       punchSwooshSound = thePunchSwooshSound;
 	}
 
 	public void performAction(float time, Event e) {
+		myGame.setIdle(false);
 		s.stopAnimation();
       punchSwooshSound.play();
 		s.startAnimation("Punch_Animation");

@@ -10,10 +10,11 @@ import graphicslib3D.Matrix3D;
 import sage.scene.SceneNode;
 import sage.scene.shape.*;
 import sage.terrain.TerrainBlock;
+import a3.games.fighter2015.FightingGame;
 import a3.kmap165Engine.network.*;
 import sage.scene.Model3DTriMesh;
-
 import sage.audio.*;
+
 import com.jogamp.openal.ALFactory;
 
 public class KickAction extends AbstractInputAction {
@@ -22,14 +23,16 @@ public class KickAction extends AbstractInputAction {
 	private MyClient client;
    private Sound kickSwooshSound;
 	private TerrainBlock terrain;
-
-	public KickAction(Model3DTriMesh n, MyClient thisClient, Sound theKickSwooshSound) {
+	private FightingGame gg;
+	public KickAction(Model3DTriMesh n, MyClient thisClient, Sound theKickSwooshSound, FightingGame g) {
 		s = n;
 		client = thisClient;
+		gg = g;
       kickSwooshSound = theKickSwooshSound;
 	}
 
 	public void performAction(float time, Event e) {
+		gg.setIdle(false);
 		s.stopAnimation();
       kickSwooshSound.play();
 		s.startAnimation("Kick_Animation");

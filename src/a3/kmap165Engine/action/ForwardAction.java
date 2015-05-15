@@ -9,6 +9,7 @@ import graphicslib3D.Vector3D;
 import graphicslib3D.Matrix3D;
 import sage.scene.SceneNode;
 import sage.scene.shape.*;
+import a3.games.fighter2015.FightingGame;
 import a3.kmap165Engine.network.*;
 import sage.terrain.*;
 import sage.scene.Model3DTriMesh;
@@ -18,8 +19,10 @@ public class ForwardAction extends AbstractInputAction {
 	private Matrix3D sM;
 	private MyClient client;
 	private TerrainBlock terrain;
+	private FightingGame mg;
 
-	public ForwardAction(Model3DTriMesh n, TerrainBlock t, MyClient thisClient) {
+	public ForwardAction(Model3DTriMesh n, TerrainBlock t, MyClient thisClient, FightingGame g) {
+		mg = g;
 		s = n;
 		terrain = t;
 		sM = s.getLocalTranslation();
@@ -27,11 +30,12 @@ public class ForwardAction extends AbstractInputAction {
 	}
 
 	public void performAction(float time, Event e) {
-		s.stopAnimation();
-		s.startAnimation("Idle_Animation");
-	//	sM.translate(0, 0, -0.1f);
-	//	s.setLocalTranslation(sM);
-
+	//	s.stopAnimation();
+		mg.setIdle(false);
+		s.startAnimation("Running_Animation", time);
+		sM.translate(0, 0, -0.1f);
+		s.setLocalTranslation(sM);
+		System.out.println("Running_Animation");
 	//	updateVerticalPosition();
 
 		s.updateWorldBound();

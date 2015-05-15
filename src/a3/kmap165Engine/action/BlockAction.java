@@ -10,10 +10,11 @@ import graphicslib3D.Matrix3D;
 import sage.scene.SceneNode;
 import sage.scene.shape.*;
 import sage.terrain.TerrainBlock;
+import a3.games.fighter2015.FightingGame;
 import a3.kmap165Engine.network.*;
 import sage.scene.Model3DTriMesh;
-
 import sage.audio.*;
+
 import com.jogamp.openal.ALFactory;
 
 public class BlockAction extends AbstractInputAction {
@@ -21,14 +22,16 @@ public class BlockAction extends AbstractInputAction {
 	private Matrix3D sM;
 	private MyClient client;
 	private TerrainBlock terrain;
-
-	public BlockAction(Model3DTriMesh n, MyClient thisClient) {
+	private FightingGame gg;
+	public BlockAction(Model3DTriMesh n, MyClient thisClient, FightingGame g) {
 		s = n;
 		sM = s.getLocalTranslation();
 		client = thisClient;
+		gg = g;
 	}
 
 	public void performAction(float time, Event e) {
+		gg.setIdle(false);
 		s.stopAnimation();
 		s.startAnimation("Block_Animation");
 		System.out.println("Block");

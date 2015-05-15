@@ -162,6 +162,7 @@ public class FightingGame extends BaseGame implements KeyListener {
    // creating flags
     private boolean p1isPunching, p1isKicking, p1isBlocking, p2isPunching, p2isKicking, p2isBlocking, p1LosesTrade, p2LosesTrade,
     p1WinsTrade, p2WinsTrade, p1isNeutral, p2isNeutral; 
+    private boolean isIdle, isActive;
     
     /*
      * PUNCHING
@@ -261,7 +262,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 		// c2c = new Camera3Pcontroller(camera2,p2,im,gpName);
 		// Controls for P1
 		ForwardAction mvForward = new ForwardAction(playerOne, hillTerr,
-				thisClient);
+				thisClient, this);
 		// c2c = new Camera3Pcontroller(camera2,p2,im,mouseName);
 		// c2c = new Camera3Pcontroller(camera2,p2,im,gpName);
 		// Controls for P1
@@ -271,37 +272,37 @@ public class FightingGame extends BaseGame implements KeyListener {
 				IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
 
 		BackwardAction mvBackward = new BackwardAction(playerOne, hillTerr,
-				thisClient);
+				thisClient, this);
 
 		im.associateAction(Keyboard,
 				net.java.games.input.Component.Identifier.Key.S, mvBackward,
 				IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
 
-		LeftAction mvLeft = new LeftAction(playerOne, hillTerr, thisClient);
+		LeftAction mvLeft = new LeftAction(playerOne, hillTerr, thisClient, this);
 
 		im.associateAction(Keyboard,
 				net.java.games.input.Component.Identifier.Key.A, mvLeft,
 				IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
 
-		RightAction mvRight = new RightAction(playerOne, hillTerr, thisClient);
+		RightAction mvRight = new RightAction(playerOne, hillTerr, thisClient, this);
 
 		im.associateAction(Keyboard,
 				net.java.games.input.Component.Identifier.Key.D, mvRight,
 				IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
 
-		KickAction kick = new KickAction(playerOne, thisClient, kickSwooshSound);
+		KickAction kick = new KickAction(playerOne, thisClient, kickSwooshSound, this);
 
 		im.associateAction(Keyboard,
 				net.java.games.input.Component.Identifier.Key.K, kick,
 				IInputManager.INPUT_ACTION_TYPE.ON_PRESS_ONLY);
 
-		PunchAction punch = new PunchAction(playerOne, thisClient, punchSwooshSound);
+		PunchAction punch = new PunchAction(playerOne, thisClient, this, punchSwooshSound);
 
 		im.associateAction(Keyboard,
 				net.java.games.input.Component.Identifier.Key.I, punch,
 				IInputManager.INPUT_ACTION_TYPE.ON_PRESS_ONLY);
 
-		BlockAction block = new BlockAction(playerOne, thisClient);
+		BlockAction block = new BlockAction(playerOne, thisClient, this);
 
 		im.associateAction(Keyboard,
 				net.java.games.input.Component.Identifier.Key.SPACE, block,
@@ -726,6 +727,17 @@ public class FightingGame extends BaseGame implements KeyListener {
 				}
 			}
 		}
+		if (isIdle)
+		{
+			for (SceneNode s: getGameWorld())
+			{
+				if (s instanceof Model3DTriMesh)
+				{
+					((Model3DTriMesh) s).startAnimation("Idle_Animation");
+				}
+			}
+		}
+		
 
 		// Update skybox's location
 		Point3D camLoc = c1c.getLocation();
@@ -1245,6 +1257,11 @@ public class FightingGame extends BaseGame implements KeyListener {
 	private class StartAction extends AbstractInputAction {
 		public void performAction(float time, Event ee) {
 			running = true;
+			isIdle = true;
 		}
+	}
+	public void setIdle(Boolean b)
+	{
+		isIdle = b;
 	}
 }

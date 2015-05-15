@@ -9,6 +9,7 @@ import graphicslib3D.Vector3D;
 import graphicslib3D.Matrix3D;
 import sage.scene.SceneNode;
 import sage.scene.shape.*;
+import a3.games.fighter2015.FightingGame;
 import a3.kmap165Engine.network.*;
 import sage.terrain.*;
 import sage.scene.Model3DTriMesh;
@@ -18,26 +19,27 @@ public class LeftAction extends AbstractInputAction {
 	private Matrix3D sM;
 	private MyClient client;
 	private TerrainBlock terrain;
-
-	public LeftAction(Model3DTriMesh n, TerrainBlock t, MyClient thisClient) {
+	private FightingGame gg;
+	public LeftAction(Model3DTriMesh n, TerrainBlock t, MyClient thisClient, FightingGame g) {
 		s = n;
 		terrain = t;
 		sM = s.getLocalTranslation();
 		client = thisClient;
+		gg = g;
 	}
 
 	public void performAction(float time, Event e) {
-	//	sM.translate(-0.1f, 0, 0);
-	//	s.setLocalTranslation(sM);
+		sM.translate(-0.1f, 0, 0);
+		s.setLocalTranslation(sM);
 
 	//	updateVerticalPosition();
-
+		gg.setIdle(false);
 		s.updateWorldBound();
 		s.updateLocalBound();
 		s.updateGeometricState((double) time, false);
 
 		s.stopAnimation();
-		s.startAnimation("Kicked_Action");
+		s.startAnimation("Running_Animation");
 		// s.getWorldBound().computeFromPoints(s.getVertexBuffer());
      // System.out.println(client);
 		if (client != null)
