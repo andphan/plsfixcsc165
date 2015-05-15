@@ -375,7 +375,7 @@ public class FightingGame extends BaseGame implements KeyListener {
       crowdSound.setRollOff(3.0f);
       crowdSound.setLocation(new Point3D(chest.getWorldTranslation().getCol(3)));
       
-      setEarParameters();
+      setEarParameters(); // okay
       crowdSound.play();
    }
    public void setEarParameters(){
