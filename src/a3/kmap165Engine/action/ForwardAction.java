@@ -31,8 +31,8 @@ public class ForwardAction extends AbstractInputAction {
 
 	public void performAction(float time, Event e) {
 	//	s.stopAnimation();
-		mg.setIdle(false);
-		s.startAnimation("Running_Animation", time);
+	//	mg.setMoving(true);
+		s.startAnimation("Running_Animation");
 		sM.translate(0, 0, -0.1f);
 		s.setLocalTranslation(sM);
 		System.out.println("Running_Animation");

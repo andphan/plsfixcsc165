@@ -164,6 +164,8 @@ public class FightingGame extends BaseGame implements KeyListener {
     p1WinsTrade, p2WinsTrade, p1isNeutral, p2isNeutral; 
     private boolean isIdle, isActive;
     
+    private boolean isMoving, isPunching, isKicking, isBlocking, isPunched, isKicked, isKnockedOut, startAnimProcess;
+    
     /*
      * PUNCHING
      * if p1 throws a punch and p2 is not doing anything then p1 hits
@@ -468,7 +470,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 			playerOne = (Model3DTriMesh) modelIterator.next();
 
 			Matrix3D playerOneT = playerOne.getLocalTranslation();
-			playerOneT.translate(100, 50, 50);
+			playerOneT.translate(245, 10, 250);
 			playerOne.setLocalTranslation(playerOneT);
          playerOne.setWorldTranslation(playerOneT);
 
@@ -662,7 +664,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 		// create some treasure
 		cyl = new Cylinder();
 		Matrix3D cylM = cyl.getLocalTranslation();
-		cylM.translate(20, 0, 20);
+		cylM.translate(245, 0, 250);
 		cyl.setLocalTranslation(cylM);
 		addGameWorldObject(cyl);
 		cyl.updateWorldBound();
@@ -712,6 +714,37 @@ public class FightingGame extends BaseGame implements KeyListener {
 
 	}
 
+	// going to test out animation stances
+	
+	public void startAnimationProcess()
+	{
+		
+		System.out.println("start Anim Process being called: " + startAnimProcess);
+		for (SceneNode s : getGameWorld())
+		{
+			if (s instanceof Model3DTriMesh)
+			{
+				if (isIdle)
+				{
+			//		System.out.println("i'm calling back!");
+					((Model3DTriMesh) s).startAnimation("Idle_Animation");
+
+					// set 
+		
+				}
+				
+				if (isMoving)
+				{
+					// this refers to w,a,s,d
+					((Model3DTriMesh) s).startAnimation("Running_Animation");
+				}
+				
+			}
+		}
+
+	}
+	
+	
 	public void update(float elapsedTimeMS) {
 
 		if (running) {
@@ -727,18 +760,12 @@ public class FightingGame extends BaseGame implements KeyListener {
 				}
 			}
 		}
-		if (isIdle)
-		{
-			for (SceneNode s: getGameWorld())
-			{
-				if (s instanceof Model3DTriMesh)
-				{
-					((Model3DTriMesh) s).startAnimation("Idle_Animation");
-				}
-			}
-		}
-		
 
+		if (startAnimProcess = true) {
+			// this should work
+			startAnimationProcess();
+			isIdle = false;
+		}
 		// Update skybox's location
 		Point3D camLoc = c1c.getLocation();
 		Matrix3D camTranslation = new Matrix3D();
@@ -766,12 +793,27 @@ public class FightingGame extends BaseGame implements KeyListener {
 		if (cyl.getWorldBound().intersects(playerOne.getWorldBound())
 				&& collidedWCylinder == false) {
 
+			if (isKicking == true)
+			{
 			collidedWCylinder = true;
+			isKicking = false;
 			numCrashes++;
 			score1 += 500;
 			CrashEvent newCrash = new CrashEvent(numCrashes);
 			removeGameWorldObject(cyl);
 			eventMgr.triggerEvent(newCrash);
+			}
+			else if (isPunching == true)
+			{
+				collidedWCylinder = true;
+				isPunching = false;
+				numCrashes++;
+				score1 += 500;
+				CrashEvent newCrash = new CrashEvent(numCrashes);
+				removeGameWorldObject(cyl);
+				eventMgr.triggerEvent(newCrash);
+					
+			}
 		}
 		if (sph.getWorldBound().intersects(playerOne.getWorldBound())
 				&& collidedWPyramid == false) {
@@ -1257,11 +1299,45 @@ public class FightingGame extends BaseGame implements KeyListener {
 	private class StartAction extends AbstractInputAction {
 		public void performAction(float time, Event ee) {
 			running = true;
-			isIdle = true;
+	//		startAnimProcess(true);
+	//		setIdle(true);
+	//		setMoving(false);
 		}
 	}
 	public void setIdle(Boolean b)
 	{
 		isIdle = b;
+	}
+	public void setMoving(Boolean b)
+	{
+		isMoving = b;
+	}
+	public void setPunching(Boolean b)
+	{
+		isPunching = b;
+	}
+	public void setKicking(Boolean b)
+	{
+		isKicking = b;
+	}
+	public void setBlocking(Boolean b)
+	{
+		isBlocking = b;
+	}
+	public void setPunched(Boolean b)
+	{
+		isPunched = b;
+	}
+	public void setKicked(Boolean b)
+	{
+		isKicked = b;
+	}
+	public void setKOed(Boolean b)
+	{
+		isKnockedOut = b;
+	}
+	public void startAnimProcess(Boolean b)
+	{
+		startAnimProcess = b;
 	}
 }

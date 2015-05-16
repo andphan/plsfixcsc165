@@ -32,7 +32,11 @@ public class BackwardAction extends AbstractInputAction {
 	public void performAction(float time, Event e) {
 		sM.translate(0, 0, 0.1f);
 		s.setLocalTranslation(sM);
+	/*	mg.setMoving(true);
 		mg.setIdle(false);
+		mg.startAnimProcess(false);
+		*/
+		s.startAnimation("Running_Animation");
 		s.updateWorldBound();
 		s.updateLocalBound();
 		s.updateGeometricState((double) time, false);
@@ -40,9 +44,7 @@ public class BackwardAction extends AbstractInputAction {
 		// System.out.println(client);
 		if (client != null)
 			client.sendMoveMessage(sM.getCol(3));
-		
-		s.stopAnimation();
-		s.startAnimation("Running_Animation");
+
 	}
 
 	private void updateVerticalPosition() {

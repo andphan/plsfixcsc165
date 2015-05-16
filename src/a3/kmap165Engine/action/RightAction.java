@@ -34,13 +34,13 @@ public class RightAction extends AbstractInputAction {
 		s.setLocalTranslation(sM);
 
 	//	updateVerticalPosition();
-		mg.setIdle(false);
+	//	mg.setMoving(true);
+		
+		s.startAnimation("Running_Animation");
 		s.updateWorldBound();
 		s.updateLocalBound();
 		s.updateGeometricState((double) time, false);
 
-		s.stopAnimation();
-		s.startAnimation("Running_Animation");
 		// s.getWorldBound().computeFromPoints(s.getVertexBuffer());
       //System.out.println(client);
 		if (client != null)

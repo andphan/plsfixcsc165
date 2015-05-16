@@ -32,7 +32,7 @@ public class KickAction extends AbstractInputAction {
 	}
 
 	public void performAction(float time, Event e) {
-		gg.setIdle(false);
+		gg.setKicking(true);
 		s.stopAnimation();
       kickSwooshSound.play();
 		s.startAnimation("Kick_Animation");

@@ -34,7 +34,7 @@ public class PunchAction extends AbstractInputAction {
 	}
 
 	public void performAction(float time, Event e) {
-		myGame.setIdle(false);
+		myGame.setPunching(true);
 		s.stopAnimation();
       punchSwooshSound.play();
 		s.startAnimation("Punch_Animation");
