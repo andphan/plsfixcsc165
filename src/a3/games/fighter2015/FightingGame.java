@@ -234,6 +234,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 		}
       initInputB();
 		// playerOne.startAnimation("Idle_Stance");
+      isBlocking = true;
 	}
 
 	public MyClient getClient() {
@@ -719,7 +720,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 	public void startAnimationProcess()
 	{
 		
-		System.out.println("start Anim Process being called: " + startAnimProcess);
+	//	System.out.println("start Anim Process being called: " + startAnimProcess);
 		for (SceneNode s : getGameWorld())
 		{
 			if (s instanceof Model3DTriMesh)
@@ -760,7 +761,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 				}
 			}
 		}
-
+		System.out.println("blocking is " + isBlocking);
 		if (startAnimProcess = true) {
 			// this should work
 			startAnimationProcess();
@@ -790,21 +791,27 @@ public class FightingGame extends BaseGame implements KeyListener {
 			removeGameWorldObject(tpt);
 			eventMgr.triggerEvent(newCrash);
 		}
+		/*
+		 * 
+		 * HERE IS THE TEST SO FAR 
+		 */
 		if (cyl.getWorldBound().intersects(playerOne.getWorldBound())
-				&& collidedWCylinder == false) {
+				&& collidedWCylinder == false && isBlocking == false) {
 
 			if (isKicking == true)
 			{
+				System.out.println("kicked");
 			collidedWCylinder = true;
 			isKicking = false;
 			numCrashes++;
-			score1 += 500;
+			score1 += 100;
 			CrashEvent newCrash = new CrashEvent(numCrashes);
 			removeGameWorldObject(cyl);
 			eventMgr.triggerEvent(newCrash);
 			}
 			else if (isPunching == true)
 			{
+				System.out.println("punched");
 				collidedWCylinder = true;
 				isPunching = false;
 				numCrashes++;
@@ -814,6 +821,32 @@ public class FightingGame extends BaseGame implements KeyListener {
 				eventMgr.triggerEvent(newCrash);
 					
 			}
+			/*
+			else if (isPunching == true && isBlocking == true)
+			{
+				collidedWCylinder = true;
+				System.out.println("punched but blocked");
+				isPunching = false;
+				numCrashes++;
+				score1 += 10; // test
+				CrashEvent newCrash = new CrashEvent(numCrashes);
+		//		removeGameWorldObject(cyl);
+				eventMgr.triggerEvent(newCrash);
+				
+			}
+			else if (isKicking == true && isBlocking == true)
+			{
+				System.out.println("kicked but blocked");
+				collidedWCylinder = true;
+				isKicking = false;
+				numCrashes++;
+				score1 += 20; // test
+				CrashEvent newCrash = new CrashEvent(numCrashes);
+		//		removeGameWorldObject(cyl);
+				eventMgr.triggerEvent(newCrash);
+				
+			}
+			*/
 		}
 		if (sph.getWorldBound().intersects(playerOne.getWorldBound())
 				&& collidedWPyramid == false) {
@@ -1301,7 +1334,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 			running = true;
 	//		startAnimProcess(true);
 	//		setIdle(true);
-	//		setMoving(false);
+			setBlocking(false);
 		}
 	}
 	public void setIdle(Boolean b)
