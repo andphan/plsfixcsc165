@@ -111,7 +111,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 	private IRenderer renderer;
 	private int score1 = 0, score2 = 0, numCrashes = 0;
 	private float time1 = 0, time2 = 0;
-	private HUDString player1ScoreString, player1TimeString,
+	private HUDString player1ScoreString, player1TimeString, player1HealthString,
 			player2ScoreString, player2TimeString;
 	private boolean isOver = false;
 	private IDisplaySystem fullDisplay, display;
@@ -165,6 +165,8 @@ public class FightingGame extends BaseGame implements KeyListener {
     private boolean isIdle, isActive;
     
     private boolean isMoving, isPunching, isKicking, isBlocking, isPunched, isKicked, isKnockedOut, startAnimProcess;
+    
+    private PlayerOne p1Data;
     
 //    private PlayerOne playerOne;
     
@@ -222,7 +224,8 @@ public class FightingGame extends BaseGame implements KeyListener {
 		createSagePhysicsWorld();
       initInputA();
 		initAudio(); // error
-      
+		startAnimProcess = false;
+		setIdle(true);
 		try {
 			thisClient = new MyClient(InetAddress.getByName(serverAddress),
 					serverPort, serverProtocol, this);
@@ -549,8 +552,12 @@ public class FightingGame extends BaseGame implements KeyListener {
 		camera1 = new JOGLCamera(renderer);
 		camera1.setPerspectiveFrustum(60, 1, 1, 1000);
 		camera1.setViewport(0.0, 1.0, 0.0, 1.0);
-
+		p1Data = new PlayerOne(this);
+		p1Data.setScore(0);
+		p1Data.setHealth(100);
+		score1 = p1Data.getScore();
 		createPlayerHUDs();
+
 	}
 
 	private void createPlayerHUDs() {
@@ -562,6 +569,14 @@ public class FightingGame extends BaseGame implements KeyListener {
 		player1ID.setColor(Color.red);
 		player1ID.setCullMode(sage.scene.SceneNode.CULL_MODE.NEVER);
 		camera1.addToHUD(player1ID);
+		
+		// Player 1 Health HUD
+		player1HealthString = new HUDString("Health = " + p1Data.getHealth());
+		player1HealthString.setLocation(0.01, 0.09);
+		player1HealthString.setRenderMode(sage.scene.SceneNode.RENDER_MODE.ORTHO);
+		player1HealthString.setColor(Color.red);
+		player1HealthString.setCullMode(sage.scene.SceneNode.CULL_MODE.NEVER);
+		camera1.addToHUD(player1HealthString);
 		// Player 1 time HUD
 		player1TimeString = new HUDString("Time = " + time1);
 		player1TimeString.setLocation(0.01, 0.06); // (0,0) [lower-left] to
@@ -571,7 +586,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 		player1TimeString.setCullMode(sage.scene.SceneNode.CULL_MODE.NEVER);
 		camera1.addToHUD(player1TimeString);
 		// Player 1 score HUD
-		player1ScoreString = new HUDString("Score = " + score1); // default is
+		player1ScoreString = new HUDString("Score = " + p1Data.getScore()); // default is
 																	// (0,0)
 		player1ScoreString.setLocation(0.01, 0.00);
 		player1ScoreString
@@ -724,7 +739,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 	public void startAnimationProcess()
 	{
 		
-	//	System.out.println("start Anim Process being called: " + startAnimProcess);
+		System.out.println("start Anim Process being called: " + startAnimProcess);
 		for (SceneNode s : getGameWorld())
 		{
 			if (s instanceof Model3DTriMesh)
@@ -733,7 +748,13 @@ public class FightingGame extends BaseGame implements KeyListener {
 				{
 			//		System.out.println("i'm calling back!");
 					((Model3DTriMesh) s).startAnimation("Idle_Animation");
-
+				   isMoving = false;
+				   isPunching = false; 
+				   isKicking = false;
+				   isBlocking = false; 
+				   isPunched = false; 
+				   isKicked = false;
+				   isKnockedOut = false;
 					// set 
 		
 				}
@@ -741,11 +762,20 @@ public class FightingGame extends BaseGame implements KeyListener {
 				if (isMoving)
 				{
 					// this refers to w,a,s,d
+					System.out.println("moving");
 					((Model3DTriMesh) s).startAnimation("Running_Animation");
+					   isIdle = false;
+					   isPunching = false; 
+					   isKicking = false;
+					   isBlocking = false; 
+					   isPunched = false; 
+					   isKicked = false;
+					   isKnockedOut = false;
 				}
 				
 			}
 		}
+			
 
 	}
 	
@@ -766,11 +796,13 @@ public class FightingGame extends BaseGame implements KeyListener {
 			}
 		}
 	//	System.out.println("blocking is " + isBlocking);
-		if (startAnimProcess = true) {
+/*		if (startAnimProcess = true) {
 			// this should work
 			startAnimationProcess();
 			startAnimProcess = false;
+			System.out.println("WHY");
 		}
+		*/
 		// Update skybox's location
 		Point3D camLoc = c1c.getLocation();
 		Matrix3D camTranslation = new Matrix3D();
@@ -799,6 +831,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 			isKicking = false;
 			numCrashes++;
 			score1 += 100;
+			p1Data.setHealth(p1Data.getHealth()-10);
 			CrashEvent newCrash = new CrashEvent(numCrashes);
 			removeGameWorldObject(cyl);
 			eventMgr.triggerEvent(newCrash);
@@ -867,7 +900,8 @@ public class FightingGame extends BaseGame implements KeyListener {
 		player1ScoreString.setText("Score = " + score1);
 		time1 += elapsedTimeMS;
 		DecimalFormat df1 = new DecimalFormat("0.0");
-		player1TimeString.setText("Time = " + df1.format(time1 / 1000) + " or player pos: " + new Point3D(playerOne.getWorldTranslation().getCol(3)));
+		player1TimeString.setText("Time = " + df1.format(time1 / 1000));
+		player1HealthString.setText("Health: " + p1Data.getHealth()); 
 
 		// update player 2's HUD
 		/*
@@ -1306,9 +1340,9 @@ public class FightingGame extends BaseGame implements KeyListener {
 	private class StartAction extends AbstractInputAction {
 		public void performAction(float time, Event ee) {
 			running = true;
-			startAnimProcess(true);
-			setIdle(true);
-			setBlocking(false);
+//			startAnimProcess(true);
+//			setIdle(true);
+//			setBlocking(false);
 		}
 	}
 	public void setIdle(Boolean b)

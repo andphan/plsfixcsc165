@@ -38,7 +38,7 @@ public class PlayerOne extends Model3DTriMesh {
 		isBlocking = false;
 		isIdle = false;
 		isMoving = false;
-		
+	/*	
 		try {
 			model = loader.loadModel(
 							"src/a3/kmap165Engine/external_models/avatar/Cube.001.mesh.xml",
@@ -52,7 +52,7 @@ public class PlayerOne extends Model3DTriMesh {
 			eea.printStackTrace();
 			System.exit(1);
 		}
-
+	*/
 
 	}
 

@@ -32,27 +32,31 @@ public class BackwardAction extends AbstractInputAction {
 	public void performAction(float time, Event e) {
 		sM.translate(0, 0, 1f);
 		s.setLocalTranslation(sM);
-		mg.setMoving(true);
+	//	mg.setMoving(true);
 	//	mg.setIdle(false);
-		mg.startAnimProcess(false);
-		
-		s.startAnimation("Running_Animation");
+	//	mg.startAnimProcess(false);
+		s.stopAnimation();
+		s.startAnimation("Idle_Animation", 5f);
+		System.out.println("is animating: "  + s.isAnimating() + " and time: "  + s.getCurrentAnimationTime());
 		s.updateWorldBound();
 		s.updateLocalBound();
 		s.updateGeometricState((double) time, false);
 		updateVerticalPosition();
 		// System.out.println(client);
+		mg.startAnimProcess(false);
 		if (client != null)
 			client.sendMoveMessage(sM.getCol(3));
-		for (int i = 0; i < 6; i++)
+		/*
+		for (int i = 0; i < 10; i++)
 		{
 			System.out.println(i);
 			mg.setMoving(true);
-			if ( i== 5)
+			if ( i== 7)
 			{
-				mg.setIdle(true);
+				mg.startAnimProcess(true);
 			}
 		}
+		*/
 	}
 
 	private void updateVerticalPosition() {
