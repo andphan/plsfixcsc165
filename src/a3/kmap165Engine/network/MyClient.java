@@ -85,18 +85,20 @@ public class MyClient extends GameConnectionClient {
 			createGhostAvatar(ghostID, ghostPosition, this);
 		}
 		// creating npc avatar here 
-		if (messageTokens[0].compareTo("createNPC")==0)
+	/*	if (messageTokens[0].compareTo("createNPC")==0)
 		{
 			System.out.println("create obtained for NPC test");
 			//int ghostNPC_ID = Integer.parseInt(messageTokens[2]);
 			Vector3D npcPosition = new Vector3D(
-               Double.parseDouble(messageTokens[/*3*/1]),
-					Double.parseDouble(messageTokens[/*4*/2]), 
-               Double.parseDouble(messageTokens[/*5*/3]));
+               Double.parseDouble(messageTokens[1]),
+					Double.parseDouble(messageTokens[2]), 
+               Double.parseDouble(messageTokens[3]));
 			//System.out.println("get pos of npc: " + npcPosition.getX() + ", " + npcPosition.getY() + ", " + npcPosition.getZ());
 			//npcPosition.set(70);
-         createGhostNPC(/*ghostNPC_ID,*/ npcPosition);
+         createGhostNPC(npcPosition);
+        
 		}
+		*/
 		if (messageTokens[0].compareTo("wsds") == 0) { // receive “wants…”
 			//System.out.println("wsds obtained");
 			// format: wsds, remoteID
@@ -110,26 +112,26 @@ public class MyClient extends GameConnectionClient {
 					Double.parseDouble(messageTokens[2]),
 					Double.parseDouble(messageTokens[3]),
 					Double.parseDouble(messageTokens[4]));
-			System.out.println("move obtained");
-			System.out.println(ghostPosition.getX() +"," +
+			System.out.println("move obtained for ghost position: " + ghostPosition.getX() +"," +
 			ghostPosition.getY() +"," + ghostPosition.getZ());
 			updateGhostAvatar(remoteID, ghostPosition);
-    //        newNPC.setPlayerPosition(ghostPosition);
+    //      newNPC.setPlayerPosition(ghostPosition);
 			
 		//	newNPC.setPosition(ghostPosition);
 		}
 		// here is where you're updating the npc
-		if (messageTokens[0].compareTo("mnpc")==0)
+/*		if (messageTokens[0].compareTo("mnpc")==0)
 		{
 			//System.out.println("NPC update movement");
 			//int ghostID = Integer.parseInt(messageTokens[1]);
 			Vector3D npcPos = new Vector3D();
-			npcPos.setX(Double.parseDouble(messageTokens[/*2*/1]));
-			npcPos.setY(Double.parseDouble(messageTokens[/*3*/2]));
-			npcPos.setZ(Double.parseDouble(messageTokens[/*4*/3]));
-			updateGhostNPC(/*ghostID, */npcPos);
+			npcPos.setX(Double.parseDouble(messageTokens[1]));
+			npcPos.setY(Double.parseDouble(messageTokens[2]));
+			npcPos.setZ(Double.parseDouble(messageTokens[3]));
+			updateGhostNPC(npcPos);
 			newNPC.setPosition(npcPos);
 		}
+	*/
 	}
 
 	public void sendCreateMessage(Vector3D pos) {
@@ -265,4 +267,5 @@ public class MyClient extends GameConnectionClient {
 			 p.printStackTrace();
 		}
 	}
+	
 }

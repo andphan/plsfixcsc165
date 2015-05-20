@@ -64,7 +64,7 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 				sendCreateMessages(clientID, ghostPosition);
 				sendWantsDetailsMessages(clientID);
             
-            sendCreateNPCMessages(clientID, ghostNPC_ID, ghostPosition);
+        /*    sendCreateNPCMessages(clientID, ghostNPC_ID, ghostPosition);
             playerPosition3D = ghostPosition3D; 
             npcCtrl.setPlayerSpot(ghostPosition3D);
             npcCtrl.startNPCControl();
@@ -77,8 +77,9 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
             }
             i++;
             }
-            
+            */
 			}
+			
 			/*if (messageTokens[0].compareTo("createNPC") == 0) { // receive “create”
 				// format: createNPC,localid, ghostNPC_id,x,y,z
 				UUID clientID = UUID.fromString(messageTokens[1]);
@@ -88,6 +89,7 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 				//sendCreateNPCMessages(clientID, ghostNPC_ID, ghostPosition);
 				sendNPCinfo();
 			}*/
+			
 			if (messageTokens[0].compareTo("dsfr") == 0) { // receive “details
 															// for”
 				// format: dsfr,remoteid,localid,x,y,z
@@ -108,9 +110,10 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 					Double.parseDouble(messageTokens[2]),
 					Double.parseDouble(messageTokens[3]),
 					Double.parseDouble(messageTokens[4]));
-            npcCtrl.setPlayerSpot(ghostPosition);
+           // npcCtrl.setPlayerSpot(ghostPosition);
 				sendMoveMessages(clientID, pos);
 			}
+			/*
 			if (messageTokens[0].compareTo("mnpc") == 0) { // receive “move”
 				// format: move,localid,x,y,z //look up sender name
 				UUID clientID = UUID.fromString(messageTokens[1]);
@@ -119,6 +122,7 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 				// System.out.println("move obtained");
 				sendNPCmoveMessages(clientID, pos);
 			}
+			*/
 	
 		}
 	}
@@ -137,10 +141,11 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 			e.printStackTrace();
 		}
 	}
+	/*
 	public void sendCreateNPCMessages(UUID clientID, String ghostNPC_ID, String[] position) {
 		// format: create, remoteId, x, y, z
 		try {
-			String message = new String("createNPC"/* + clientID.toString()*/);
+			String message = new String("createNPC");
          //message += "," + ghostNPC_ID;
 			message += "," + position[0];
 			message += "," + position[1];
@@ -151,6 +156,7 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 			e.printStackTrace();
 		}
 	}
+	*/
 	public void sendCreateMessages(UUID clientID, String[] position) {
 		// format: create, remoteId, x, y, z
 		try {
@@ -202,6 +208,7 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 			e.printStackTrace();
 		}
 	}
+	/*
 	public void sendNPCmoveMessages(UUID clientID, String[] position) {
 		// format: create, remoteId, x, y, z
 		try {
@@ -215,6 +222,7 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 			e.printStackTrace();
 		}
 	}
+	*/
 	public void sendByeMessages(UUID clientID) {
 		// format: bye, remoteID
 		try {
@@ -226,26 +234,24 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 		}
 	}
 
-	public void sendNPCinfo() {
-		//for (int i = 0; i < npcCtrl.getNumOfNPCs(); i++)
-		//{
+/*	public void sendNPCinfo() {
 			try
 			{
-				String message = new String("mnpc"/* + Integer.toString(i)*/);
-				message += "," + (npcCtrl.getNPC(/*i*/)).getX();
-				message += "," + (npcCtrl.getNPC(/*i*/)).getY();
-				message += "," + (npcCtrl.getNPC(/*i*/)).getZ();
+				String message = new String("mnpc");
+				message += "," + (npcCtrl.getNPC)).getX();
+				message += "," + (npcCtrl.getNPC)).getY();
+				message += "," + (npcCtrl.getNPC)).getZ();
 				sendPacketToAll(message);
 			} catch (Exception zzz)
 			{
 				zzz.printStackTrace();
 			}
-		//}
 	}
-	public void sendCheckForAvatarNear(Vector3D position) {
+	*/
+/*	public void sendCheckForAvatarNear(Vector3D position) {
       if(Math.abs(position.getX() - playerPosition3D.getX()) <= 5 &&
          Math.abs(position.getZ() - playerPosition3D.getZ()) <= 5) npcCtrl.setNearFlag(true);
       else npcCtrl.setNearFlag(false); 
 	}
-
+*/
 }

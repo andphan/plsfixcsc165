@@ -62,7 +62,7 @@ public class NPCcontroller {
 			if (elapsedMiliSecs >= 50.0f) {
 				lastUpdateTime = frameStartTime;
 				npc.updateLocation();
-				server.sendNPCinfo();
+		//s		server.sendNPCinfo();
 				bt.update(elapsedMiliSecs);
 			}
 			Thread.yield();
@@ -76,7 +76,7 @@ public class NPCcontroller {
 			//NPClist[i].updateLocation();
          npc.updateLocation();
          npc.setPlayerPosition(playerSpot);
-         server.sendNPCinfo();
+     //    server.sendNPCinfo();
          //if(NPClist[i].isClose()) setNearFlag(true);
          //else setNearFlag(false);
 		//}

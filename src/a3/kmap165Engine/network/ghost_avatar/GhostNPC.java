@@ -106,14 +106,14 @@ public class GhostNPC extends TriMesh {
 	{
 		System.out.println("moping around");
       setHeading(180 + (int) Math.toDegrees(Math.atan2(getZ() - playerPosition.getZ() , getX() - playerPosition.getX())));
-      System.out.println( playerPosition.getZ());
+  //    System.out.println( playerPosition.getZ());
       Matrix3D npcM = this.getLocalTranslation();
       npcM.translate((Math.cos(Math.toRadians((double) getHeading()))), 0, (Math.sin(Math.toRadians((double) getHeading()))));
       this.setLocalTranslation(npcM);
       //setPosition(new Vector3D(-1.0,-1.0,0.0));
       //setPosition(npcM.getCol(3));
       //setPosition(new Vector3D(-1.0,-1.0,0.0));
-      System.out.println(getLocalTranslation());
+   //   System.out.println(getLocalTranslation());
       updateLocation();
 	}
 	public void throwPowerUps()
