@@ -40,7 +40,7 @@ public class BackwardAction extends AbstractInputAction {
 		s.updateWorldBound();
 		s.updateLocalBound();
 		s.updateGeometricState((double) time, false);
-	//	updateVerticalPosition();
+		updateVerticalPosition();
 		// System.out.println(client);
 		if (client != null)
 			client.sendMoveMessage(sM.getCol(3));

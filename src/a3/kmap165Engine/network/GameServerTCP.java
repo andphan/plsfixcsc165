@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.util.UUID;
 
+import javax.swing.Timer;
+
 import a3.kmap165Engine.npc.NPCcontroller;
 import sage.networking.server.GameConnectionServer;
 import sage.networking.server.IClientInfo;
@@ -66,8 +68,16 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
             playerPosition3D = ghostPosition3D; 
             npcCtrl.setPlayerSpot(ghostPosition3D);
             npcCtrl.startNPCControl();
-            
+            int i = 1;
+            while (i > 0)
+            {
+            if ( i % 4 == 0)
+            {
             sendNPCinfo();
+            }
+            i++;
+            }
+            
 			}
 			/*if (messageTokens[0].compareTo("createNPC") == 0) { // receive “create”
 				// format: createNPC,localid, ghostNPC_id,x,y,z

@@ -36,7 +36,7 @@ public class ForwardAction extends AbstractInputAction {
 		sM.translate(0, 0, -0.1f);
 		s.setLocalTranslation(sM);
 		System.out.println("Running_Animation");
-	//	updateVerticalPosition();
+		updateVerticalPosition();
 
 		s.updateWorldBound();
 		s.updateLocalBound();

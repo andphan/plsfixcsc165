@@ -33,7 +33,7 @@ public class RightAction extends AbstractInputAction {
 		sM.translate(0.1f, 0, 0);
 		s.setLocalTranslation(sM);
 
-	//	updateVerticalPosition();
+		updateVerticalPosition();
 	//	mg.setMoving(true);
 		
 		s.startAnimation("Running_Animation");

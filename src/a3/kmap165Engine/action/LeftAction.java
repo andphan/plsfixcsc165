@@ -32,7 +32,7 @@ public class LeftAction extends AbstractInputAction {
 		sM.translate(-0.1f, 0, 0);
 		s.setLocalTranslation(sM);
 
-	//	updateVerticalPosition();
+		updateVerticalPosition();
 	//	gg.setMoving(true);
 		
 		s.startAnimation("Running_Animation");
