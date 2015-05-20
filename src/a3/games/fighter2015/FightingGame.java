@@ -9,6 +9,7 @@ import a3.kmap165Engine.display.*;
 import a3.kmap165Engine.event.*;
 import a3.kmap165Engine.network.*;
 import a3.kmap165Engine.network.ghost_avatar.*;
+import a3.kmap165Engine.players.PlayerOne;
 import a3.kmap165Engine.scene_node_controller.*;
 import sage.app.BaseGame;
 import sage.physics.IPhysicsEngine;
@@ -68,7 +69,6 @@ import sage.networking.IGameConnection.ProtocolType;
 import java.net.InetAddress;
 
 import javax.imageio.ImageIO;
-
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineFactory;
@@ -95,8 +95,8 @@ import sage.scene.Model3DTriMesh;
 //import com.jme.scene.state.TextureState;
 import sage.event.*;
 import sage.animation.Joint;
-
 import sage.audio.*;
+
 import com.jogamp.openal.ALFactory;
 
 public class FightingGame extends BaseGame implements KeyListener {
@@ -165,6 +165,8 @@ public class FightingGame extends BaseGame implements KeyListener {
     private boolean isIdle, isActive;
     
     private boolean isMoving, isPunching, isKicking, isBlocking, isPunched, isKicked, isKnockedOut, startAnimProcess;
+    
+//    private PlayerOne playerOne;
     
     /*
      * PUNCHING
@@ -476,9 +478,9 @@ public class FightingGame extends BaseGame implements KeyListener {
          playerOne.setWorldTranslation(playerOneT);
 
 			Matrix3D playerOneR = playerOne.getLocalRotation();
-			playerOneR.rotateX(90.0);
-			playerOneR.rotateY(180);
-			playerOneR.rotateZ(180);
+		//	playerOneR.rotateX(90.0);
+		//	playerOneR.rotateY(180);
+		//	playerOneR.rotateZ(180);
 			playerOne.setLocalRotation(playerOneR);
          playerOne.setWorldRotation(playerOneR);
          
@@ -496,6 +498,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 		System.out.println("playerone : " + playerOne.getAnimations());
 
 	}
+	
    /*private void initJoints(){
       for (Joint joint : playerOne.getJoints()){ //initialize the matrix that moves the parent’s axes to this joint’s axes
          float [] initialRot = joint.getInitialRotation(); //data from model file
@@ -542,6 +545,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 
 		//addGameWorldObject(playerOne);
 
+		
 		camera1 = new JOGLCamera(renderer);
 		camera1.setPerspectiveFrustum(60, 1, 1, 1000);
 		camera1.setViewport(0.0, 1.0, 0.0, 1.0);
@@ -761,11 +765,11 @@ public class FightingGame extends BaseGame implements KeyListener {
 				}
 			}
 		}
-		System.out.println("blocking is " + isBlocking);
+	//	System.out.println("blocking is " + isBlocking);
 		if (startAnimProcess = true) {
 			// this should work
 			startAnimationProcess();
-			isIdle = false;
+			startAnimProcess = false;
 		}
 		// Update skybox's location
 		Point3D camLoc = c1c.getLocation();
@@ -781,21 +785,11 @@ public class FightingGame extends BaseGame implements KeyListener {
 		 */
 		// parkingLot.setLocalTranslation(camTranslation);
 		// Player 1's crash events
-		if (tpt.getWorldBound().intersects(playerOne.getWorldBound())
-				&& collidedWTeapot == false) {
-
-			collidedWTeapot = true;
-			numCrashes++;
-			score1 += 100;
-			CrashEvent newCrash = new CrashEvent(numCrashes);
-			removeGameWorldObject(tpt);
-			eventMgr.triggerEvent(newCrash);
-		}
 		/*
 		 * 
 		 * HERE IS THE TEST SO FAR 
 		 */
-		if (cyl.getWorldBound().intersects(playerOne.getWorldBound())
+		if (cyl.getWorldBound().intersects(playerOne.getWorldBound()) // error
 				&& collidedWCylinder == false && isBlocking == false) {
 
 			if (isKicking == true)
@@ -847,26 +841,6 @@ public class FightingGame extends BaseGame implements KeyListener {
 				
 			}
 			*/
-		}
-		if (sph.getWorldBound().intersects(playerOne.getWorldBound())
-				&& collidedWPyramid == false) {
-
-			collidedWPyramid = true;
-			numCrashes++;
-			score1 += 250;
-			CrashEvent newCrash = new CrashEvent(numCrashes);
-			removeGameWorldObject(sph);
-			eventMgr.triggerEvent(newCrash);
-		}
-		if (jade.getWorldBound().intersects(playerOne.getWorldBound())
-				&& collidedWDiamond == false) {
-
-			collidedWDiamond = true;
-			numCrashes++;
-			score1 += 1000;
-			CrashEvent newCrash = new CrashEvent(numCrashes);
-			removeGameWorldObject(jade);
-			eventMgr.triggerEvent(newCrash);
 		}
 		// Player 2's crash events
 		/*
@@ -1332,8 +1306,8 @@ public class FightingGame extends BaseGame implements KeyListener {
 	private class StartAction extends AbstractInputAction {
 		public void performAction(float time, Event ee) {
 			running = true;
-	//		startAnimProcess(true);
-	//		setIdle(true);
+			startAnimProcess(true);
+			setIdle(true);
 			setBlocking(false);
 		}
 	}

@@ -30,12 +30,12 @@ public class BackwardAction extends AbstractInputAction {
 	}
 
 	public void performAction(float time, Event e) {
-		sM.translate(0, 0, 0.1f);
+		sM.translate(0, 0, 1f);
 		s.setLocalTranslation(sM);
-	/*	mg.setMoving(true);
-		mg.setIdle(false);
+		mg.setMoving(true);
+	//	mg.setIdle(false);
 		mg.startAnimProcess(false);
-		*/
+		
 		s.startAnimation("Running_Animation");
 		s.updateWorldBound();
 		s.updateLocalBound();
@@ -44,7 +44,15 @@ public class BackwardAction extends AbstractInputAction {
 		// System.out.println(client);
 		if (client != null)
 			client.sendMoveMessage(sM.getCol(3));
-
+		for (int i = 0; i < 6; i++)
+		{
+			System.out.println(i);
+			mg.setMoving(true);
+			if ( i== 5)
+			{
+				mg.setIdle(true);
+			}
+		}
 	}
 
 	private void updateVerticalPosition() {

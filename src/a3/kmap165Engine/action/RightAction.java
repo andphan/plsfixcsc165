@@ -30,7 +30,7 @@ public class RightAction extends AbstractInputAction {
 	}
 
 	public void performAction(float time, Event e) {
-		sM.translate(0.1f, 0, 0);
+		sM.translate(1f, 0, 0);
 		s.setLocalTranslation(sM);
 
 		updateVerticalPosition();
