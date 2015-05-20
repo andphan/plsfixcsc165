@@ -168,6 +168,9 @@ public class FightingGame extends BaseGame implements KeyListener {
     
     private PlayerOne p1Data;
     
+    // trying out NPCs
+    private GhostNPC npc;
+    
 //    private PlayerOne playerOne;
     
     /*
@@ -462,6 +465,10 @@ public class FightingGame extends BaseGame implements KeyListener {
 
 		addGameWorldObject(scene);
 
+		
+		
+		// testing out npc creation
+		
 	}
 
 	public void initOgre() {
@@ -1209,6 +1216,12 @@ public class FightingGame extends BaseGame implements KeyListener {
 
 		return position;
 
+	}
+	public Vector3D getNPCPosition()
+	{
+		Vector3D position = cyl.getLocalTranslation().getCol(3);
+				
+		return position;
 	}
 
 	public boolean isConnected() {

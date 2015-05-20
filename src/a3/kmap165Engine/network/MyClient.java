@@ -64,7 +64,7 @@ public class MyClient extends GameConnectionClient {
 					Double.parseDouble(messageTokens[2]),
 					Double.parseDouble(messageTokens[3]),
 					Double.parseDouble(messageTokens[4]));
-			//System.out.println("dsfr obtained");
+			   System.out.println("dsfr obtained");
 			// System.out.println(ghostPosition.getX() +"," +
 			// ghostPosition.getY() +"," + ghostPosition.getZ());
 			createGhostAvatar(ghostID, ghostPosition, this);
@@ -80,7 +80,7 @@ public class MyClient extends GameConnectionClient {
 					Double.parseDouble(messageTokens[2]),
 					Double.parseDouble(messageTokens[3]),
 					Double.parseDouble(messageTokens[4]));
-			System.out.println(ghostPosition.getX() + ","
+			System.out.println("ghost poscreate: " + ghostPosition.getX() + ","
 					+ ghostPosition.getY() + "," + ghostPosition.getZ());
 			createGhostAvatar(ghostID, ghostPosition, this);
 		}
@@ -110,11 +110,13 @@ public class MyClient extends GameConnectionClient {
 					Double.parseDouble(messageTokens[2]),
 					Double.parseDouble(messageTokens[3]),
 					Double.parseDouble(messageTokens[4]));
-			// System.out.println("move obtained");
-			//System.out.println(ghostPosition.getX() +"," +
-			//ghostPosition.getY() +"," + ghostPosition.getZ());
+			System.out.println("move obtained");
+			System.out.println(ghostPosition.getX() +"," +
+			ghostPosition.getY() +"," + ghostPosition.getZ());
 			updateGhostAvatar(remoteID, ghostPosition);
-         newNPC.setPlayerPosition(ghostPosition);
+    //        newNPC.setPlayerPosition(ghostPosition);
+			
+		//	newNPC.setPosition(ghostPosition);
 		}
 		// here is where you're updating the npc
 		if (messageTokens[0].compareTo("mnpc")==0)
@@ -126,6 +128,7 @@ public class MyClient extends GameConnectionClient {
 			npcPos.setY(Double.parseDouble(messageTokens[/*3*/2]));
 			npcPos.setZ(Double.parseDouble(messageTokens[/*4*/3]));
 			updateGhostNPC(/*ghostID, */npcPos);
+			newNPC.setPosition(npcPos);
 		}
 	}
 
@@ -249,7 +252,7 @@ public class MyClient extends GameConnectionClient {
 		//{
 			//ghostNPCs.get(id).setPosition(pos);
 		//}
-      newNPC.setPosition(pos);
+      newNPC.setPosition(pos); //error 
 	}
 	public void askForNPCinfo()
 	{
