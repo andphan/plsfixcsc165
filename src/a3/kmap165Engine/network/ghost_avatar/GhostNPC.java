@@ -20,7 +20,7 @@ public class GhostNPC extends Cube {
 	private Vector3D position, playerPosition;
 	public GhostNPC(Vector3D pos, Vector3D playerPos)
 	{
-		Cube body = new Cube();
+		body = new Cube();
 		Matrix3D theMeshS = body.getLocalScale();
 		theMeshS.scale(.75, 0.75, .75);
 		setLocalScale(theMeshS);
@@ -97,17 +97,17 @@ public class GhostNPC extends Cube {
 	public void mopeAround()
 	{
 		System.out.println("moping around");
-/* //     setHeading(180 + (int) Math.toDegrees(Math.atan2(getZ() - playerPosition.getZ() , getX() - playerPosition.getX())));
-  //    System.out.println( playerPosition.getZ());
-   //   Matrix3D npcM = this.getLocalTranslation();
-   //   npcM.translate((Math.cos(Math.toRadians((double) getHeading()))), 0, (Math.sin(Math.toRadians((double) getHeading()))));
-  //    this.setLocalTranslation(npcM);
+ //     setHeading(180 + (int) Math.toDegrees(Math.atan2(getZ() - playerPosition.getZ() , getX() - playerPosition.getX())));
+        System.out.println("playerPos: " +  playerPosition +  " thisloc: " +  this.returnPosition());
+        Matrix3D npcM = this.getLocalTranslation();
+        npcM.translate((Math.cos(Math.toRadians((double) getHeading()))), 0, (Math.sin(Math.toRadians((double) getHeading()))));
+		this.setLocalTranslation(npcM);
       //setPosition(new Vector3D(-1.0,-1.0,0.0));
       //setPosition(npcM.getCol(3));
       //setPosition(new Vector3D(-1.0,-1.0,0.0));
    //   System.out.println(getLocalTranslation());
       updateLocation();
-     */ 
+      
       this.rotate(90, new Vector3D(1, 1, 1));
 	}
 	public void throwPowerUps()
