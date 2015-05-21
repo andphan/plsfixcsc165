@@ -22,7 +22,6 @@ public class OneSecPassed extends BTCondition {
 			lastUpdateTime = System.nanoTime();
 			npcc.setNearFlag(false);
 			return true;
-		} else
-			return false;
+		} else return false;
 	}
 }

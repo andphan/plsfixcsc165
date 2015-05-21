@@ -22,7 +22,7 @@ public class Camera3Pcontroller {
 	private float mult = 1f;
 
 	public Camera3Pcontroller(ICamera cam, SceneNode target,
-			IInputManager inputMgr, String controllerName) {
+			IInputManager inputMgr, String controllerName, String controllerName2) {
 
 		this.cam = cam;
 		this.target = target;
@@ -32,7 +32,7 @@ public class Camera3Pcontroller {
 		// start from FRONT OF and ABOVE the target
 		cameraAzimuth = 0;
 		cameraElevation = 20.0f; // elevation is in degrees
-		setupInput(inputMgr, controllerName);
+		setupInput(inputMgr, controllerName, controllerName2);
 		update(0.0f); // initialize camera state
 	}
 
@@ -57,27 +57,47 @@ public class Camera3Pcontroller {
 		cam.setLocation(desiredCameraLoc);
 	}
 
-	private void setupInput(IInputManager im, String cn) {
+	private void setupInput(IInputManager im, String cn, String cn2) {
 		IAction orbitAction = new OrbitAroundAction();
 		IAction zoomInAction = new ZoomInAction();
 		IAction zoomOutAction = new ZoomOutAction();
 		if (cn == im.getFirstGamepadName()) {
-			im.associateAction(cn, Axis.RX, orbitAction,
+			im.associateAction(cn, net.java.games.input.Component.Identifier.Axis.RY, orbitAction,
 					IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
-			im.associateAction(cn, Button._4, zoomInAction,
+			im.associateAction(cn, net.java.games.input.Component.Identifier.Button._6, zoomInAction,
 					IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
-			im.associateAction(cn, Button._5, zoomOutAction,
+			im.associateAction(cn, net.java.games.input.Component.Identifier.Button._7, zoomOutAction,
 					IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
 		}
 		if (cn == im.getMouseName()) {
-			im.associateAction(cn, Axis.X, orbitAction,
+			im.associateAction(cn, net.java.games.input.Component.Identifier.Axis.X, orbitAction,
 					IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
 			mult = 3f;
 		}
 		if (cn == im.getKeyboardName()) {
-			im.associateAction(cn, Key.W, zoomInAction,
+			im.associateAction(cn, net.java.games.input.Component.Identifier.Key.Z, zoomInAction,
 					IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
-			im.associateAction(cn, Key.S, zoomOutAction,
+			im.associateAction(cn, net.java.games.input.Component.Identifier.Key.X, zoomOutAction,
+					IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
+		}
+      
+      if (cn2 == im.getFirstGamepadName()) {
+			im.associateAction(cn2, net.java.games.input.Component.Identifier.Axis.RX, orbitAction,
+					IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
+			im.associateAction(cn2, net.java.games.input.Component.Identifier.Button._6, zoomInAction,
+					IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
+			im.associateAction(cn2, net.java.games.input.Component.Identifier.Button._7, zoomOutAction,
+					IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
+		}
+		if (cn2 == im.getMouseName()) {
+			im.associateAction(cn2, net.java.games.input.Component.Identifier.Axis.X, orbitAction,
+					IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
+			mult = 3f;
+		}
+		if (cn2 == im.getKeyboardName()) {
+			im.associateAction(cn2, net.java.games.input.Component.Identifier.Key.Z, zoomInAction,
+					IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
+			im.associateAction(cn2, net.java.games.input.Component.Identifier.Key.X, zoomOutAction,
 					IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
 		}
 

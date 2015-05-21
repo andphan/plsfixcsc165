@@ -30,13 +30,13 @@ public class BackwardAction extends AbstractInputAction {
 	}
 
 	public void performAction(float time, Event e) {
-		sM.translate(0, 0, 1f);
+		sM.translate(0, 0, 5f);
 		s.setLocalTranslation(sM);
 	//	mg.setMoving(true);
 	//	mg.setIdle(false);
 	//	mg.startAnimProcess(false);
 		s.stopAnimation();
-		s.startAnimation("Idle_Animation", 5f);
+		s.startAnimation("KnockedOut_Animation", 5f);
 		System.out.println("is animating: "  + s.isAnimating() + " and time: "  + s.getCurrentAnimationTime());
 		s.updateWorldBound();
 		s.updateLocalBound();
