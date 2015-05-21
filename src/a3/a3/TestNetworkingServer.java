@@ -18,8 +18,8 @@ public class TestNetworkingServer {
 		//npcCtrl = new NPCcontroller();
 		//GameServerTCP testTCPServer = new GameServerTCP(8080);
 		
-		npcCtrl.setupNPC();
-		npcLoop();
+	//	npcCtrl.setupNPC();
+	//	npcLoop();
 		
 		System.out.println("test networking server called");
 	}
@@ -44,7 +44,7 @@ public class TestNetworkingServer {
 			{
 				lastUpdateTime = frameStartTime;
 				npcCtrl.updateNPCs();
-				TCPServer.sendNPCinfo();
+		//		TCPServer.sendNPCinfo();
 				
 			}
 			Thread.yield();

@@ -64,6 +64,7 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 				sendCreateMessages(clientID, ghostPosition);
 				sendWantsDetailsMessages(clientID);
             
+        /*    sendCreateNPCMessages(clientID, ghostNPC_ID, ghostPosition);
             playerPosition3D = ghostPosition3D; 
             npcCtrl.setPlayerSpot(ghostPosition3D);
             npcCtrl.startNPCControl();
@@ -76,6 +77,7 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
             }
             i++;
             }
+            */
 			}
 			
 			/*if (messageTokens[0].compareTo("createNPC") == 0) { // receive “create”
@@ -111,7 +113,7 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
            // npcCtrl.setPlayerSpot(ghostPosition);
 				sendMoveMessages(clientID, pos);
 			}
-			
+			/*
 			if (messageTokens[0].compareTo("mnpc") == 0) { // receive “move”
 				// format: move,localid,x,y,z //look up sender name
 				UUID clientID = UUID.fromString(messageTokens[1]);
@@ -120,7 +122,7 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 				// System.out.println("move obtained");
 				sendNPCmoveMessages(clientID, pos);
 			}
-			
+			*/
 	
 		}
 	}
@@ -206,7 +208,7 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 			e.printStackTrace();
 		}
 	}
-	
+	/*
 	public void sendNPCmoveMessages(UUID clientID, String[] position) {
 		// format: create, remoteId, x, y, z
 		try {
@@ -214,13 +216,13 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 			message += "," + position[0];
 			message += "," + position[1];
 			message += "," + position[2];
-			System.out.println("npcmovemessages sent : " + message);
+			// System.out.println(message);
 			sendPacketToAll(message);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+	*/
 	public void sendByeMessages(UUID clientID) {
 		// format: bye, remoteID
 		try {
@@ -232,25 +234,24 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 		}
 	}
 
-	public void sendNPCinfo() {
+/*	public void sendNPCinfo() {
 			try
 			{
-				String message = new String("mnpc,");
-				message += "," + (npcCtrl.getNPC()).getX();
-				message += "," + (npcCtrl.getNPC()).getY();
-				message += "," + (npcCtrl.getNPC()).getZ();
+				String message = new String("mnpc");
+				message += "," + (npcCtrl.getNPC)).getX();
+				message += "," + (npcCtrl.getNPC)).getY();
+				message += "," + (npcCtrl.getNPC)).getZ();
 				sendPacketToAll(message);
 			} catch (Exception zzz)
 			{
 				zzz.printStackTrace();
 			}
 	}
-	
-	public void sendCheckForAvatarNear(Vector3D position) {
+	*/
+/*	public void sendCheckForAvatarNear(Vector3D position) {
       if(Math.abs(position.getX() - playerPosition3D.getX()) <= 5 &&
          Math.abs(position.getZ() - playerPosition3D.getZ()) <= 5) npcCtrl.setNearFlag(true);
       else npcCtrl.setNearFlag(false); 
 	}
-
-	
+*/
 }
