@@ -210,7 +210,7 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 	public void sendNPCmoveMessages(UUID clientID, String[] position) {
 		// format: create, remoteId, x, y, z
 		try {
-			String message = new String("mnpc," + clientID.toString());
+			String message = new String("mnpc");
 			message += "," + position[0];
 			message += "," + position[1];
 			message += "," + position[2];
