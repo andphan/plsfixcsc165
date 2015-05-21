@@ -1,1 +1,0 @@
-java -Dsun.java2d.d3d=false a3.a3.Starter
