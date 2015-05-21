@@ -82,15 +82,15 @@ public class NPCcontroller {
 		//}
 	}
 	public void setupBehaviorTree() {
-		bt.insertAtRoot(new BTSequence(10));
+	//	bt.insertAtRoot(new BTSequence(10));
 		bt.insertAtRoot(new BTSequence(20));
-      bt.insertAtRoot(new BTSequence(30));
-		bt.insert(10, new OneSecPassed(this, npc, false));
-		bt.insert(10, new MopeAround(npc));
+   //   bt.insertAtRoot(new BTSequence(30));
+	//	bt.insert(10, new OneSecPassed(this, npc, false));
+	//	bt.insert(10, new MopeAround(npc));
 		bt.insert(20, new AvatarNear(server, this, npc, false));
 		bt.insert(20, new AttackAvatar(npc));
-      bt.insert(30, new AvatarFar(server, this, npc, false));
-		bt.insert(30, new ApproachAvatar(npc));
+    //  bt.insert(30, new AvatarFar(server, this, npc, false));
+	//	bt.insert(30, new ApproachAvatar(npc));
 	}
    public void setPlayerSpot(Vector3D pos){
       playerSpot = pos;
