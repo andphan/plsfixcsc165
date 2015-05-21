@@ -42,9 +42,6 @@ public class ForwardAction extends AbstractInputAction {
 		s.updateLocalBound();
 		s.updateGeometricState((double) time, false);
 		
-		
-		
-		
 		// s.getWorldBound().computeFromPoints(s.getVertexBuffer());
 		// System.out.println(client);
 		if (client != null)

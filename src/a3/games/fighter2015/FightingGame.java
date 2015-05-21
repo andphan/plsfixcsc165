@@ -113,7 +113,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 	private float time1 = 0, time2 = 0;
 	private HUDString player1ScoreString, player1TimeString, player1HealthString,
 			player2ScoreString, player2TimeString;
-	private boolean isOver = false;
+	private boolean isOver = false, inFSEM = true;
 	private IDisplaySystem fullDisplay, display;
 	private Point3D origin;
 	private Random rng;
@@ -318,41 +318,80 @@ public class FightingGame extends BaseGame implements KeyListener {
 		im.associateAction(Keyboard,
 				net.java.games.input.Component.Identifier.Key.SPACE, block,
 				IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
-		// Controls for P2
-		/*
-		 * X_Action_Controller xControl = new X_Action_Controller(p2);
-		 * im.associateAction(gpName,
-		 * net.java.games.input.Component.Identifier.Axis.X, xControl,
-		 * IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
-		 * 
-		 * Z_Action_Controller zControl = new Z_Action_Controller(p2);
-		 * im.associateAction(gpName,
-		 * net.java.games.input.Component.Identifier.Axis.Y, zControl,
-		 * IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN); ForwardAction
-		 * mvForward2 = new ForwardAction(p2); im.associateAction(Keyboard,
-		 * net.java.games.input.Component.Identifier.Key.K, mvForward2,
-		 * IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
-		 * 
-		 * BackwardAction mvBackward2 = new BackwardAction(p2);
-		 * im.associateAction(Keyboard,
-		 * net.java.games.input.Component.Identifier.Key.I, mvBackward2,
-		 * IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
-		 * 
-		 * LeftAction mvLeft2 = new LeftAction(p2); im.associateAction(Keyboard,
-		 * net.java.games.input.Component.Identifier.Key.J, mvLeft2,
-		 * IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
-		 * 
-		 * RightAction mvRight2 = new RightAction(p2);
-		 * im.associateAction(Keyboard,
-		 * net.java.games.input.Component.Identifier.Key.L, mvRight2,
-		 * IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
-		 */
-
-		// Quit Action
+            
+      SwitchAction switchNow = new SwitchAction(this);
+      
+		im.associateAction(Keyboard,
+				net.java.games.input.Component.Identifier.Key.F11, switchNow,
+				IInputManager.INPUT_ACTION_TYPE.ON_PRESS_ONLY);
+            
+      // Quit Action
 		QuitAction stop = new QuitAction(this);
 		im.associateAction(Keyboard,
 				net.java.games.input.Component.Identifier.Key.ESCAPE, stop,
 				IInputManager.INPUT_ACTION_TYPE.ON_PRESS_ONLY);
+		// Controls for P2
+		
+		 X_Action_Controller xControl = new X_Action_Controller(playerOne, hillTerr, thisClient, this);
+       
+		  im.associateAction(gpName,
+		  net.java.games.input.Component.Identifier.Axis.X, xControl,
+		 IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
+		  
+		  Z_Action_Controller zControl = new Z_Action_Controller(playerOne, hillTerr, thisClient, this);
+		  im.associateAction(gpName,
+		  net.java.games.input.Component.Identifier.Axis.Y, zControl,
+		  IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN); 
+        
+        /*ForwardAction mvForward2 = new ForwardAction(playerOne, hillTerr, thisClient, this); 
+        im.associateAction(Keyboard,
+		  net.java.games.input.Component.Identifier.Key.K, mvForward2,
+		  IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
+		  
+		 BackwardAction mvBackward2 = new BackwardAction(playerOne, hillTerr, thisClient, this);
+		  im.associateAction(Keyboard,
+		  net.java.games.input.Component.Identifier.Key.I, mvBackward2,
+		  IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
+		  
+		 LeftAction mvLeft2 = new LeftAction(playerOne, hillTerr, thisClient, this); 
+       im.associateAction(Keyboard,
+		  net.java.games.input.Component.Identifier.Key.J, mvLeft2,
+		  IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
+		  
+		  RightAction mvRight2 = new RightAction(playerOne, hillTerr, thisClient, this);
+        
+		  im.associateAction(Keyboard,
+		  net.java.games.input.Component.Identifier.Key.L, mvRight2,
+		 IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);*/
+		
+      //KickAction kick2 = new KickAction(playerOne, thisClient, kickSwooshSound, this);
+
+		im.associateAction(gpName,
+				net.java.games.input.Component.Identifier.Button._1, kick,
+				IInputManager.INPUT_ACTION_TYPE.ON_PRESS_ONLY);
+
+		//PunchAction punch = new PunchAction(playerOne, thisClient, this, punchSwooshSound);
+
+		im.associateAction(gpName,
+				net.java.games.input.Component.Identifier.Button._2, punch,
+				IInputManager.INPUT_ACTION_TYPE.ON_PRESS_ONLY);
+
+		//BlockAction block = new BlockAction(playerOne, thisClient, this);
+
+		im.associateAction(gpName,
+				net.java.games.input.Component.Identifier.Button._3, block,
+				IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
+            
+      //SwitchAction switchNow = new SwitchAction(this);
+      
+		im.associateAction(gpName,
+				net.java.games.input.Component.Identifier.Button._4, switchNow,
+				IInputManager.INPUT_ACTION_TYPE.ON_PRESS_ONLY);
+      
+      im.associateAction(gpName,
+				net.java.games.input.Component.Identifier.Button._5, stop,
+				IInputManager.INPUT_ACTION_TYPE.ON_PRESS_ONLY);
+		
 	}
 
    private void initAudio(){
@@ -1164,8 +1203,8 @@ public class FightingGame extends BaseGame implements KeyListener {
 		 */
 	}
 
-	private IDisplaySystem createDisplaySystem() {
-		display = new MyDisplaySystem(1920, 1200, 32, 60, true,
+	private IDisplaySystem createFullDisplaySystem() {
+		display = new MyDisplaySystem(1920, 1200, 32, 60, false,
 				"sage.renderer.jogl.JOGLRenderer");
 		System.out.print("\nWaiting for display creation...");
 		int count = 0;
@@ -1188,9 +1227,39 @@ public class FightingGame extends BaseGame implements KeyListener {
 		System.out.println();
 		return display;
 	}
-
+   private IDisplaySystem createWDisplaySystem() {
+		display = new MyDisplaySystem(1280, 800, 32, 60, false,
+				"sage.renderer.jogl.JOGLRenderer");
+		System.out.print("\nWaiting for display creation...");
+		int count = 0;
+		// wait until display creation completes or a timeout occurs
+		while (!display.isCreated()) {
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				throw new RuntimeException("Display creation interrupted");
+			}
+			count++;
+			System.out.print("+");
+			if (count % 80 == 0) {
+				System.out.println();
+			}
+			if (count > 2000) { // 20 seconds (approx.)
+				throw new RuntimeException("Unable to create display");
+			}
+		}
+		System.out.println();
+		return display;
+	}
+   public boolean isInFSEM(){
+      return inFSEM;
+   } 
+   public void setInFSEM(boolean ght){
+      inFSEM = ght;
+      changeSystem();
+   }
 	protected void shutdown() {
-		// display.close();
+		display.close();
 
 		super.shutdown();
 		if (thisClient != null) {
@@ -1203,14 +1272,30 @@ public class FightingGame extends BaseGame implements KeyListener {
 		}
 	}
 
-	/*
-	 * protected void initSystem(){ //call a local method to create a
-	 * DisplaySystem object IDisplaySystem display = createDisplaySystem();
-	 * setDisplaySystem(display); //create an Input Manager IInputManager
-	 * inputManager = new InputManager(); setInputManager(inputManager);
-	 * //create an (empty) gameworld ArrayList<SceneNode> gameWorld = new
-	 * ArrayList<SceneNode>(); setGameWorld(gameWorld); }
-	 */
+	
+	 protected void initSystem(){
+       //call a local method to create a DisplaySystem object 
+       IDisplaySystem display = createFullDisplaySystem();
+   	 setDisplaySystem(display); 
+       //create an Input Manager
+   	 IInputManager inputManager = new InputManager(); 
+       setInputManager(inputManager);
+   	 //create an (empty) gameworld 
+       ArrayList<SceneNode> gameWorld = new ArrayList<SceneNode>(); 
+       setGameWorld(gameWorld); 
+    }
+	 
+    protected void changeSystem(){
+       //call a local method to create a DisplaySystem object 
+       display.close();
+       if(inFSEM) display = createFullDisplaySystem();
+       else display = createWDisplaySystem();
+   	 setDisplaySystem(display); 
+       
+       getDisplaySystem().setTitle("Fighting Game");
+		 renderer = getDisplaySystem().getRenderer();
+    }
+
 	public Vector3D getPlayerPosition() {
 		Vector3D position = playerOne.getLocalTranslation().getCol(3);
 

@@ -9,14 +9,24 @@ import graphicslib3D.Vector3D;
 import graphicslib3D.Matrix3D;
 import sage.scene.SceneNode;
 import sage.scene.shape.*;
+import a3.games.fighter2015.FightingGame;
+import a3.kmap165Engine.network.*;
+import sage.terrain.*;
+import sage.scene.Model3DTriMesh;
 
 public class Z_Action_Controller extends AbstractInputAction {
-	private SceneNode s;
+	private Model3DTriMesh s;
 	private Matrix3D sM;
+	private MyClient client;
+	private TerrainBlock terrain;
+	private FightingGame mg;
 
-	public Z_Action_Controller(SceneNode sn) {
-		s = sn;
+	public Z_Action_Controller(Model3DTriMesh n, TerrainBlock t, MyClient thisClient, FightingGame g) {
+		mg = g;
+		s = n;
+		terrain = t;
 		sM = s.getLocalTranslation();
+		client = thisClient;
 	}
 
 	public void performAction(float time, Event e) {
@@ -24,13 +34,30 @@ public class Z_Action_Controller extends AbstractInputAction {
 		if (e.getValue() < -0.2) {
 			sM.translate(0, 0, -0.1f);
 			s.setLocalTranslation(sM);
+         updateVerticalPosition();
 			s.updateWorldBound();
+         
+         if (client != null)
+			client.sendMoveMessage(sM.getCol(3));
 		} else {
 			if (e.getValue() > 0.2) {
 				sM.translate(0, 0, 0.1f);
 				s.setLocalTranslation(sM);
+            updateVerticalPosition();
 				s.updateWorldBound();
+            
+            if (client != null)
+			   client.sendMoveMessage(sM.getCol(3));
 			}
 		}
+	}
+   private void updateVerticalPosition() {
+		Point3D avLoc = new Point3D(sM.getCol(3));
+		float x = (float) avLoc.getX();
+		float z = (float) avLoc.getZ();
+		float tHeight = terrain.getHeight(x, z);
+		float desiredHeight = tHeight + (float) terrain.getOrigin().getY()
+				+ 0.5f;
+		s.getLocalTranslation().setElementAt(1, 3, desiredHeight);
 	}
 }
