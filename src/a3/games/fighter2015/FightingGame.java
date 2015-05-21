@@ -1225,6 +1225,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 		 */
 	}
 
+	
 	private IDisplaySystem createFullDisplaySystem() {
 		display = new MyDisplaySystem(1920, 1200, 32, 60, false,
 				"sage.renderer.jogl.JOGLRenderer");
@@ -1249,6 +1250,31 @@ public class FightingGame extends BaseGame implements KeyListener {
 		System.out.println();
 		return display;
 	}
+	private IDisplaySystem createDisplaySystem() {
+		display = new MyDisplaySystem(900, 500, 32, 60, false,
+				"sage.renderer.jogl.JOGLRenderer");
+		System.out.print("\nWaiting for display creation...");
+		int count = 0;
+		// wait until display creation completes or a timeout occurs
+		while (!display.isCreated()) {
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				throw new RuntimeException("Display creation interrupted");
+			}
+			count++;
+			System.out.print("+");
+			if (count % 80 == 0) {
+				System.out.println();
+			}
+			if (count > 2000) { // 20 seconds (approx.)
+				throw new RuntimeException("Unable to create display");
+			}
+		}
+		System.out.println();
+		return display;
+	}
+
    private IDisplaySystem createWDisplaySystem() {
 		display = new MyDisplaySystem(1280, 800, 32, 60, false,
 				"sage.renderer.jogl.JOGLRenderer");
@@ -1297,8 +1323,9 @@ public class FightingGame extends BaseGame implements KeyListener {
 	
 	 protected void initSystem(){
        //call a local method to create a DisplaySystem object 
-       IDisplaySystem display = createWDisplaySystem();
-   	 setDisplaySystem(display); 
+		 IDisplaySystem disay = createDisplaySystem();
+	//   IDisplaySystem display = createWDisplaySystem();
+   	 setDisplaySystem(disay); 
        //create an Input Manager
    	 IInputManager inputManager = new InputManager(); 
        setInputManager(inputManager);
@@ -1310,7 +1337,7 @@ public class FightingGame extends BaseGame implements KeyListener {
     protected void changeSystem(){
        //call a local method to create a DisplaySystem object 
        display.close();
-       if(inFSEM) display = createFullDisplaySystem();
+       if(inFSEM) display = createDisplaySystem();
        else display = createWDisplaySystem();
    	 setDisplaySystem(display); 
        
