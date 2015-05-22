@@ -162,7 +162,7 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 			message += "," + position[0];
 			message += "," + position[1];
 			message += "," + position[2];
-			// System.out.println(message);
+			System.out.println(message);
 			forwardPacketToAll(message, clientID);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -200,7 +200,7 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 			message += "," + position[0];
 			message += "," + position[1];
 			message += "," + position[2];
-			// System.out.println(message);
+			System.out.println(message);
 			forwardPacketToAll(message, clientID);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -210,7 +210,7 @@ public class GameServerTCP extends GameConnectionServer<UUID> {
 	public void sendNPCmoveMessages(UUID clientID, String[] position) {
 		// format: create, remoteId, x, y, z
 		try {
-			String message = new String("mnpc");
+			String message = new String("mnpc," + clientID.toString());
 			message += "," + position[0];
 			message += "," + position[1];
 			message += "," + position[2];

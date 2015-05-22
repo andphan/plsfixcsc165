@@ -24,9 +24,10 @@ public class NPCcontroller {
    private Vector3D playerSpot;
    //private Vector<GhostNPC> ghostNPCs;
    
-   public NPCcontroller(GameServerTCP serveThis){
+   public NPCcontroller(GameServerTCP serveThis/*, Vector3D lk*/){
       server = serveThis;
       nearFlag = false;
+      //playerSpot = lk;
    }
    
 	public void startNPCControl() {
