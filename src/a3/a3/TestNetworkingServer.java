@@ -11,18 +11,18 @@ public class TestNetworkingServer {
 	private long startTime;
 	private long lastUpdateTime;
    static private GameServerTCP TCPServer;
-	/*public TestNetworkingServer(int id) throws IOException
+	public TestNetworkingServer(int id) throws IOException
 	{
 		startTime = System.nanoTime();
 		lastUpdateTime = startTime;
 		//npcCtrl = new NPCcontroller();
 		//GameServerTCP testTCPServer = new GameServerTCP(8080);
 		
-		npcCtrl.setupNPC();
-		npcLoop();
+	//	npcCtrl.setupNPC();
+	//	npcLoop();
 		
 		System.out.println("test networking server called");
-	}*/
+	}
 	
 	public static void main(String[] args) throws IOException {
 		try {
@@ -34,7 +34,7 @@ public class TestNetworkingServer {
 	}
 	
 	
-	/*public void npcLoop()
+	public void npcLoop()
 	{
 		while (true)
 		{
@@ -44,12 +44,12 @@ public class TestNetworkingServer {
 			{
 				lastUpdateTime = frameStartTime;
 				npcCtrl.updateNPCs();
-				TCPServer.sendNPCinfo();
+		//		TCPServer.sendNPCinfo();
 				
 			}
 			Thread.yield();
 		}
 	}
-	*/
+	
 	
 }

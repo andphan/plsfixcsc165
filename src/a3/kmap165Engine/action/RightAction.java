@@ -30,13 +30,13 @@ public class RightAction extends AbstractInputAction {
 	}
 
 	public void performAction(float time, Event e) {
-		sM.translate(5f, 0, 0);
+		sM.translate(1f, 0, 0);
 		s.setLocalTranslation(sM);
 
 		updateVerticalPosition();
 	//	mg.setMoving(true);
 		
-		s.startAnimation("Kicked_Action");
+		s.startAnimation("Running_Animation");
 		s.updateWorldBound();
 		s.updateLocalBound();
 		s.updateGeometricState((double) time, false);

@@ -16,7 +16,9 @@ public class SwitchAction extends AbstractInputAction{
       theGame = game;
    }
    public void performAction(float time, Event e){
-      if(theGame.isInFSEM()) theGame.setInFSEM(false);
+   /*   if(theGame.isInFSEM()) theGame.setInFSEM(false);
       else theGame.setInFSEM(true);
+      
+      */
    }
 }
