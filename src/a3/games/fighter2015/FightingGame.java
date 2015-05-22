@@ -151,7 +151,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 	// physics
 	private boolean running;
 	private IPhysicsEngine physicsEngine;
-	private IPhysicsObject powerUpP, terrainP;
+	private IPhysicsObject powerUpP, terrainP, chestP, playerOneP;
 	private Sphere powerUp;
 	private OBJLoader objectLoader;
 
@@ -1348,6 +1348,16 @@ public class FightingGame extends BaseGame implements KeyListener {
 				hillTerr.getWorldTransform().getValues(), up, 0.0f);
 		terrainP.setBounciness(1.0f);
 		hillTerr.setPhysicsObject(terrainP);
+		
+		chestP = physicsEngine.addSphereObject(physicsEngine.nextUID(), mass, chest.getWorldTransform().getValues(), 1.0f);
+		chestP.setBounciness(1.0f);
+		chest.setPhysicsObject(chestP);
+		
+		// playerOne test
+		playerOneP = physicsEngine.addSphereObject(physicsEngine.nextUID(), mass, playerOne.getWorldTransform().getValues(), 1.0f);
+		playerOneP.setBounciness(1.0f);
+		playerOne.setPhysicsObject(playerOneP);
+		
 	}
 
 	private class StartAction extends AbstractInputAction {
