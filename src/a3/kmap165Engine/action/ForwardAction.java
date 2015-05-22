@@ -33,7 +33,7 @@ public class ForwardAction extends AbstractInputAction {
 	//	s.stopAnimation();
 	//	mg.setMoving(true);
 		s.startAnimation("Running_Animation");
-		sM.translate(0, 0, -5f);
+		sM.translate(0, 0, -1f);
 		s.setLocalTranslation(sM);
 		System.out.println("Running_Animation");
 		updateVerticalPosition();
@@ -41,6 +41,9 @@ public class ForwardAction extends AbstractInputAction {
 		s.updateWorldBound();
 		s.updateLocalBound();
 		s.updateGeometricState((double) time, false);
+		
+		
+		
 		
 		// s.getWorldBound().computeFromPoints(s.getVertexBuffer());
 		// System.out.println(client);

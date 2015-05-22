@@ -21,8 +21,8 @@ public class AvatarNear extends BTCondition {
 
 	protected boolean check() {
 		Vector3D npcV = new Vector3D(npc.getX(), npc.getY(), npc.getZ());
-		System.out.println("avatar korra is the avatar near: " + npcV);
-		server.sendCheckForAvatarNear(npcV);
+//		server.sendCheckForAvatarNear(npcV);
+		System.out.println("the avatar is near! KORRAAAAAAAAAAAA");
 		return npcc.getNearFlag();
 	}
 }

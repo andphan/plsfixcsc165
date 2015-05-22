@@ -20,7 +20,7 @@ public class GhostAvatar extends TriMesh {
 
 	public GhostAvatar(UUID ID, Vector3D position, MyClient client) {
 		theMesh = objectLoader
-				.loadModel("src/a3/kmap165Engine/external_models/albertTestMesh.obj");
+				.loadModel("./a3/kmap165Engine/external_models/albertTestMesh.obj");
 		this.setVertexBuffer(theMesh.getVertexBuffer());
 		this.setIndexBuffer(theMesh.getIndexBuffer());
 		/*

@@ -29,13 +29,13 @@ public class LeftAction extends AbstractInputAction {
 	}
 
 	public void performAction(float time, Event e) {
-		sM.translate(-5f, 0, 0);
+		sM.translate(-1f, 0, 0);
 		s.setLocalTranslation(sM);
 
 		updateVerticalPosition();
 	//	gg.setMoving(true);
 		
-		s.startAnimation("Punched_Action");
+		s.startAnimation("Running_Animation");
 		s.updateWorldBound();
 		s.updateLocalBound();
 		s.updateGeometricState((double) time, false);

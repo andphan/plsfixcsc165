@@ -24,10 +24,9 @@ public class NPCcontroller {
    private Vector3D playerSpot;
    //private Vector<GhostNPC> ghostNPCs;
    
-   public NPCcontroller(GameServerTCP serveThis/*, Vector3D lk*/){
+   public NPCcontroller(GameServerTCP serveThis){
       server = serveThis;
       nearFlag = false;
-      //playerSpot = lk;
    }
    
 	public void startNPCControl() {
@@ -43,7 +42,7 @@ public class NPCcontroller {
       this.playerSpot = playerLocation;
    }
 	public void setupNPC() {
-		npc = new GhostNPC(new Vector3D(70.0,2.0,50.0), playerSpot);
+		npc = new GhostNPC(/*1,*/ new Vector3D(70.0,2.0,50.0), playerSpot);
       //NPClist[0] = npc;
 		/*try {
 		Point3D newPoint = new Point3D(50, 0, 80);
@@ -63,7 +62,7 @@ public class NPCcontroller {
 			if (elapsedMiliSecs >= 50.0f) {
 				lastUpdateTime = frameStartTime;
 				npc.updateLocation();
-		      server.sendNPCinfo();
+		//s		server.sendNPCinfo();
 				bt.update(elapsedMiliSecs);
 			}
 			Thread.yield();
@@ -77,13 +76,13 @@ public class NPCcontroller {
 			//NPClist[i].updateLocation();
          npc.updateLocation();
          npc.setPlayerPosition(playerSpot);
-         server.sendNPCinfo();
+     //    server.sendNPCinfo();
          //if(NPClist[i].isClose()) setNearFlag(true);
          //else setNearFlag(false);
 		//}
 	}
 	public void setupBehaviorTree() {
-	   bt.insertAtRoot(new BTSequence(10));
+		bt.insertAtRoot(new BTSequence(10));
 		bt.insertAtRoot(new BTSequence(20));
       bt.insertAtRoot(new BTSequence(30));
 		bt.insert(10, new OneSecPassed(this, npc, false));
@@ -91,7 +90,7 @@ public class NPCcontroller {
 		bt.insert(20, new AvatarNear(server, this, npc, false));
 		bt.insert(20, new AttackAvatar(npc));
       bt.insert(30, new AvatarFar(server, this, npc, false));
-	   bt.insert(30, new ApproachAvatar(npc));
+		bt.insert(30, new ApproachAvatar(npc));
 	}
    public void setPlayerSpot(Vector3D pos){
       playerSpot = pos;
@@ -102,7 +101,7 @@ public class NPCcontroller {
    public void setNearFlag(boolean nearFlag) {
 		this.nearFlag = nearFlag;
 	}
-	public GhostNPC getNPC() {
+	public GhostNPC getNPC(/*int i*/) {
 		//GhostNPC nz = new GhostNPC();
 		/*for (int x = 0; x <= NPClist.length; x++)
 		{

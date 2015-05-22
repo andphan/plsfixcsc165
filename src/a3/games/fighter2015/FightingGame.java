@@ -113,7 +113,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 	private float time1 = 0, time2 = 0;
 	private HUDString player1ScoreString, player1TimeString, player1HealthString,
 			player2ScoreString, player2TimeString;
-	private boolean isOver = false, inFSEM = false;
+	private boolean isOver = false;
 	private IDisplaySystem fullDisplay, display;
 	private Point3D origin;
 	private Random rng;
@@ -133,7 +133,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 	private TheChest chest;
 	private boolean collidedWTeapot = false, collidedWPyramid = false,
 			collidedWCylinder = false, collidedWDiamond = false,
-			isConnected = false, firstRun = true;
+			isConnected = false;
 
 	private Texture tf;
 	private Group scene;
@@ -158,7 +158,6 @@ public class FightingGame extends BaseGame implements KeyListener {
 	private Model3DTriMesh myObject;
    private IAudioManager audioMgr;
    private Sound punchSwooshSound, punchHitSound, kickSwooshSound, kickHitSound, crowdSound;
-   private ArrayList<SceneNode> gameWorldX = new ArrayList<SceneNode>(); 
     
    // creating flags
     private boolean p1isPunching, p1isKicking, p1isBlocking, p2isPunching, p2isKicking, p2isBlocking, p1LosesTrade, p2LosesTrade,
@@ -226,12 +225,8 @@ public class FightingGame extends BaseGame implements KeyListener {
 		createPlayers();
 		initPhysicsSystem();
 		createSagePhysicsWorld();
-      
-		if(firstRun){
-         
-         initInputA();
-         initAudio(); // error
-      }
+      initInputA();
+		initAudio(); // error
 		startAnimProcess = false;
 		setIdle(true);
 		try {
@@ -245,10 +240,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 		if (thisClient != null) {
 			thisClient.sendJoinMessage();
 		}
-      if(firstRun){
-         firstRun = false;
-         initInputB();
-      }
+      initInputB();
 		// playerOne.startAnimation("Idle_Stance");
       isBlocking = true;
 	}
@@ -271,10 +263,10 @@ public class FightingGame extends BaseGame implements KeyListener {
 		// scriptTestInput
 		UpdatePlayerColor updateColor = new UpdatePlayerColor();
 		im.associateAction(Keyboard,
-				net.java.games.input.Component.Identifier.Key.P,
+				net.java.games.input.Component.Identifier.Key.SPACE,
 				updateColor, IInputManager.INPUT_ACTION_TYPE.ON_PRESS_ONLY);
 
-		c1c = new Camera3Pcontroller(camera1, playerOne, im, mouseName, gpName);
+		c1c = new Camera3Pcontroller(camera1, playerOne, im, mouseName);
    }
    private void initInputB() {
 		// c2c = new Camera3Pcontroller(camera2,p2,im,mouseName);
@@ -326,80 +318,41 @@ public class FightingGame extends BaseGame implements KeyListener {
 		im.associateAction(Keyboard,
 				net.java.games.input.Component.Identifier.Key.SPACE, block,
 				IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
-            
-      SwitchAction switchNow = new SwitchAction(this);
-      
-		im.associateAction(Keyboard,
-				net.java.games.input.Component.Identifier.Key.F11, switchNow,
-				IInputManager.INPUT_ACTION_TYPE.ON_PRESS_ONLY);
-            
-      // Quit Action
+		// Controls for P2
+		/*
+		 * X_Action_Controller xControl = new X_Action_Controller(p2);
+		 * im.associateAction(gpName,
+		 * net.java.games.input.Component.Identifier.Axis.X, xControl,
+		 * IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
+		 * 
+		 * Z_Action_Controller zControl = new Z_Action_Controller(p2);
+		 * im.associateAction(gpName,
+		 * net.java.games.input.Component.Identifier.Axis.Y, zControl,
+		 * IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN); ForwardAction
+		 * mvForward2 = new ForwardAction(p2); im.associateAction(Keyboard,
+		 * net.java.games.input.Component.Identifier.Key.K, mvForward2,
+		 * IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
+		 * 
+		 * BackwardAction mvBackward2 = new BackwardAction(p2);
+		 * im.associateAction(Keyboard,
+		 * net.java.games.input.Component.Identifier.Key.I, mvBackward2,
+		 * IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
+		 * 
+		 * LeftAction mvLeft2 = new LeftAction(p2); im.associateAction(Keyboard,
+		 * net.java.games.input.Component.Identifier.Key.J, mvLeft2,
+		 * IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
+		 * 
+		 * RightAction mvRight2 = new RightAction(p2);
+		 * im.associateAction(Keyboard,
+		 * net.java.games.input.Component.Identifier.Key.L, mvRight2,
+		 * IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
+		 */
+
+		// Quit Action
 		QuitAction stop = new QuitAction(this);
 		im.associateAction(Keyboard,
 				net.java.games.input.Component.Identifier.Key.ESCAPE, stop,
 				IInputManager.INPUT_ACTION_TYPE.ON_PRESS_ONLY);
-		// Controls for P2
-		
-		 X_Action_Controller xControl = new X_Action_Controller(playerOne, hillTerr, thisClient, this);
-       
-		  im.associateAction(gpName,
-		  net.java.games.input.Component.Identifier.Axis.X, xControl,
-		 IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
-		  
-		  Z_Action_Controller zControl = new Z_Action_Controller(playerOne, hillTerr, thisClient, this);
-		  im.associateAction(gpName,
-		  net.java.games.input.Component.Identifier.Axis.Y, zControl,
-		  IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN); 
-        
-        /*ForwardAction mvForward2 = new ForwardAction(playerOne, hillTerr, thisClient, this); 
-        im.associateAction(Keyboard,
-		  net.java.games.input.Component.Identifier.Key.K, mvForward2,
-		  IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
-		  
-		 BackwardAction mvBackward2 = new BackwardAction(playerOne, hillTerr, thisClient, this);
-		  im.associateAction(Keyboard,
-		  net.java.games.input.Component.Identifier.Key.I, mvBackward2,
-		  IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
-		  
-		 LeftAction mvLeft2 = new LeftAction(playerOne, hillTerr, thisClient, this); 
-       im.associateAction(Keyboard,
-		  net.java.games.input.Component.Identifier.Key.J, mvLeft2,
-		  IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
-		  
-		  RightAction mvRight2 = new RightAction(playerOne, hillTerr, thisClient, this);
-        
-		  im.associateAction(Keyboard,
-		  net.java.games.input.Component.Identifier.Key.L, mvRight2,
-		 IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);*/
-		
-      //KickAction kick2 = new KickAction(playerOne, thisClient, kickSwooshSound, this);
-
-		im.associateAction(gpName,
-				net.java.games.input.Component.Identifier.Button._1, kick,
-				IInputManager.INPUT_ACTION_TYPE.ON_PRESS_ONLY);
-
-		//PunchAction punch = new PunchAction(playerOne, thisClient, this, punchSwooshSound);
-
-		im.associateAction(gpName,
-				net.java.games.input.Component.Identifier.Button._2, punch,
-				IInputManager.INPUT_ACTION_TYPE.ON_PRESS_ONLY);
-
-		//BlockAction block = new BlockAction(playerOne, thisClient, this);
-
-		im.associateAction(gpName,
-				net.java.games.input.Component.Identifier.Button._3, block,
-				IInputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
-            
-      //SwitchAction switchNow = new SwitchAction(this);
-      
-		im.associateAction(gpName,
-				net.java.games.input.Component.Identifier.Button._4, switchNow,
-				IInputManager.INPUT_ACTION_TYPE.ON_PRESS_ONLY);
-      
-      im.associateAction(gpName,
-				net.java.games.input.Component.Identifier.Button._5, stop,
-				IInputManager.INPUT_ACTION_TYPE.ON_PRESS_ONLY);
-		
 	}
 
    private void initAudio(){
@@ -413,59 +366,60 @@ public class FightingGame extends BaseGame implements KeyListener {
       //setup for punchResource1
       punchResource1 = audioMgr.createAudioResource("src/a3/kmap165Engine/sound/punch/punch_init.mp3", AudioResourceType.AUDIO_SAMPLE);
       //System.out.println(punchResource1);
-      punchSwooshSound = new Sound(punchResource1, SoundType.SOUND_EFFECT, 50, false);
+      punchSwooshSound = new Sound(punchResource1, SoundType.SOUND_EFFECT, 100, false);
       //System.out.println(punchSwooshSound);
       punchSwooshSound.initialize(audioMgr);
       //System.out.println(punchSwooshSound);
       //punchSwooshSound.setMaxDistance(null);
 
-      /*punchSwooshSound.setMaxDistance(10.0f);
-      punchSwooshSound.setMinDistance(0.0f);
-      punchSwooshSound.setRollOff(5.0f);
-      punchSwooshSound.setLocation(new Point3D(playerOne.getWorldTranslation().getCol(3)));*/
+     // punchSwooshSound.setMaxDistance(10.0f);
+      //punchSwooshSound.setMinDistance(0.0f);
+      //punchSwooshSound.setRollOff(5.0f);
+      if(punchSwooshSound.getIsSoundValid()) System.out.println("GGGGGGGGGGG");
+      punchSwooshSound.setLocation(new Point3D(playerOne.getWorldTranslation().getCol(3)));
       
       //setup for punchResource2
       punchResource2 = audioMgr.createAudioResource("src/a3/kmap165Engine/sound/punch/punch_hit.wav", AudioResourceType.AUDIO_SAMPLE);
-      punchHitSound = new Sound(punchResource2, SoundType.SOUND_EFFECT, 70, false);
+      punchHitSound = new Sound(punchResource2, SoundType.SOUND_EFFECT, 100, false);
       punchHitSound.initialize(audioMgr);
 
-      /*punchHitSound.setMaxDistance(10.0f);
-      punchHitSound.setMinDistance(0.0f);
-      punchHitSound.setRollOff(1.0f);
-      punchHitSound.setLocation(new Point3D(playerOne.getWorldTranslation().getCol(3)));*/
+      //punchHitSound.setMaxDistance(10.0f);
+      //punchHitSound.setMinDistance(0.0f);
+      //punchHitSound.setRollOff(1.0f);
+      punchHitSound.setLocation(new Point3D(playerOne.getWorldTranslation().getCol(3)));
       
       //setup for kickResource1
       kickResource1 = audioMgr.createAudioResource("src/a3/kmap165Engine/sound/kick/kick_init.wav", AudioResourceType.AUDIO_SAMPLE);
-      kickSwooshSound = new Sound(kickResource1, SoundType.SOUND_EFFECT, 50, false);
+      kickSwooshSound = new Sound(kickResource1, SoundType.SOUND_EFFECT, 80, false);
       kickSwooshSound.initialize(audioMgr);
 
-      /*kickSwooshSound.setMaxDistance(10.0f);
+      kickSwooshSound.setMaxDistance(10.0f);
       kickSwooshSound.setMinDistance(0.0f);
       kickSwooshSound.setRollOff(5.0f);
-      kickSwooshSound.setLocation(new Point3D(playerOne.getWorldTranslation().getCol(3)));*/
+      kickSwooshSound.setLocation(new Point3D(playerOne.getWorldTranslation().getCol(3)));
       
       //setup for kickResource2
       kickResource2 = audioMgr.createAudioResource("src/a3/kmap165Engine/sound/kick/kick_hit.wav", AudioResourceType.AUDIO_SAMPLE);
-      kickHitSound = new Sound(kickResource2, SoundType.SOUND_EFFECT, 70, false);
+      kickHitSound = new Sound(kickResource2, SoundType.SOUND_EFFECT, 100, false);
       kickHitSound.initialize(audioMgr);
 
-      /*kickHitSound.setMaxDistance(10.0f);
+      kickHitSound.setMaxDistance(10.0f);
       kickHitSound.setMinDistance(0.0f);
       kickHitSound.setRollOff(1.0f);
-      kickHitSound.setLocation(new Point3D(playerOne.getWorldTranslation().getCol(3)));*/
+      kickHitSound.setLocation(new Point3D(playerOne.getWorldTranslation().getCol(3)));
       
       //setup for crowdResource
       crowdResource = audioMgr.createAudioResource("src/a3/kmap165Engine/sound/background/ambience/sports_crowd.wav", AudioResourceType.AUDIO_SAMPLE);
-      crowdSound = new Sound(crowdResource, SoundType.SOUND_EFFECT, 50, true);
+      crowdSound = new Sound(crowdResource, SoundType.SOUND_EFFECT, 100, true);
       crowdSound.initialize(audioMgr);
 
-      /*crowdSound.setMaxDistance(50.0f);
+      crowdSound.setMaxDistance(50.0f);
       crowdSound.setMinDistance(5.0f);
       crowdSound.setRollOff(3.0f);
-      crowdSound.setLocation(new Point3D(chest.getWorldTranslation().getCol(3)));*/
+      crowdSound.setLocation(new Point3D(chest.getWorldTranslation().getCol(3)));
       
       setEarParameters(); // okay
-      crowdSound.play();
+  //    crowdSound.play();
    }
    public void setEarParameters(){
       Matrix3D avDir = (Matrix3D) (playerOne.getWorldRotation().clone());
@@ -509,7 +463,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 
 		scene.addChild(skybox);
 
-		addGameWorldObject(scene, true);
+		addGameWorldObject(scene);
 
 		
 		
@@ -550,7 +504,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 			System.exit(1);
 		}
 
-		addGameWorldObject(playerOne, true);
+		addGameWorldObject(playerOne);
 		System.out.println("playerone : " + playerOne.getAnimations());
 
 	}
@@ -688,7 +642,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 		rng = new Random();
 
 		lineNodes = (SceneNode) engine.get("lineNodes");
-		addGameWorldObject(lineNodes, true);
+		addGameWorldObject(lineNodes);
 
 		/*
 		 * // add some lines Line xLine = new Line(origin, new Point3D(100,0,0),
@@ -731,15 +685,15 @@ public class FightingGame extends BaseGame implements KeyListener {
 		chestT.translate(250, 0, 250);
 		chest.setLocalTranslation(chestT);
 		chest.setLocalScale(chestM);
-		addGameWorldObject(chest, true);
+		addGameWorldObject(chest);
 		eventMgr.addListener(chest, CrashEvent.class);
 
 		// create some treasure
 		cyl = new Cylinder();
 		Matrix3D cylM = cyl.getLocalTranslation();
-		cylM.translate(200, 0, 250);
+		cylM.translate(245, 0, 250);
 		cyl.setLocalTranslation(cylM);
-		addGameWorldObject(cyl, true);
+		addGameWorldObject(cyl);
 		cyl.updateWorldBound();
 
 		// physics
@@ -747,28 +701,28 @@ public class FightingGame extends BaseGame implements KeyListener {
 		Matrix3D puT = powerUp.getLocalTranslation();
 		puT.translate(30, 50, 40);
 		powerUp.setLocalTranslation(puT);
-		addGameWorldObject(powerUp, true);
+		addGameWorldObject(powerUp);
 		powerUp.updateGeometricState(1.0f, true);
 
 		sph = new Sphere();
 		Matrix3D sphM = sph.getLocalTranslation();
-		sphM.translate(200, 0, 200);
+		sphM.translate(0, 0, 40);
 		sph.setLocalTranslation(sphM);
-		addGameWorldObject(sph, true);
+		addGameWorldObject(sph);
 		sph.updateWorldBound();
 
 		tpt = new Teapot();
 		Matrix3D tptM = tpt.getLocalTranslation();
 		tptM.translate(25, 0, 40);
 		tpt.setLocalTranslation(tptM);
-		addGameWorldObject(tpt, true);
+		addGameWorldObject(tpt);
 		tpt.updateWorldBound();
 
 		jade = new MyDiamond();
 		Matrix3D jadeM = jade.getLocalTranslation();
-		jadeM.translate(350, 1, 0);
+		jadeM.translate(35, 1, 0);
 		jade.setLocalTranslation(jadeM);
-		addGameWorldObject(jade, true);
+		addGameWorldObject(jade);
 		jade.updateWorldBound();
 
 		eventMgr.addListener(chest, CrashEvent.class);
@@ -928,42 +882,27 @@ public class FightingGame extends BaseGame implements KeyListener {
 			}
 			*/
 		}
-		// Player 1's crash events
-	
-		 if (tpt.getWorldBound().intersects(playerOne.getWorldBound()) && collidedWTeapot == false){
-         collidedWTeapot = true;
-         numCrashes++;
-         score1 += 100;
-         CrashEvent newCrash = new CrashEvent(numCrashes);
-         removeGameWorldObject(tpt);
-         eventMgr.triggerEvent(newCrash);
-      }
-      if (cyl.getWorldBound().intersects(playerOne.getWorldBound()) && collidedWCylinder == false){
-         collidedWCylinder = true; 
-         numCrashes++;
-         score1 += 500;
-         CrashEvent newCrash = new CrashEvent(numCrashes);
-         removeGameWorldObject(cyl);
-         eventMgr.triggerEvent(newCrash);
-      }
-      if (sph.getWorldBound().intersects(playerOne.getWorldBound()) && collidedWPyramid == false){
-         collidedWPyramid = true; 
-         numCrashes++;
-         score1 += 250;
-         CrashEvent newCrash = new CrashEvent(numCrashes);
-         removeGameWorldObject(sph);
-         eventMgr.triggerEvent(newCrash);
-      }
-      if (jade.getWorldBound().intersects(playerOne.getWorldBound()) && collidedWDiamond == false){
-         collidedWDiamond = true; 
-         numCrashes++;
-         score1 += 1000;
-         CrashEvent newCrash = new CrashEvent(numCrashes);
-         removeGameWorldObject(jade);
-         eventMgr.triggerEvent(newCrash);
-      }
-
-		 
+		// Player 2's crash events
+		/*
+		 * if ((tpt.getWorldBound().intersects(p2.getWorldBound())) &&
+		 * collidedWTeapot == false){ collidedWTeapot = true; numCrashes++;
+		 * score2 += 100; CrashEvent newCrash = new CrashEvent(numCrashes);
+		 * removeGameWorldObject(tpt); eventMgr.triggerEvent(newCrash); } if
+		 * ((cyl.getWorldBound().intersects(p2.getWorldBound())) &&
+		 * collidedWCylinder == false){ collidedWCylinder = true; numCrashes++;
+		 * score2 += 500; CrashEvent newCrash = new CrashEvent(numCrashes);
+		 * removeGameWorldObject(cyl); eventMgr.triggerEvent(newCrash); } if
+		 * ((sph.getWorldBound().intersects(p2.getWorldBound())) &&
+		 * collidedWPyramid == false){ collidedWPyramid = true;
+		 * System.out.println(sph.getWorldBound());
+		 * System.out.println(p2.getWorldBound()); numCrashes++; score2 += 250;
+		 * CrashEvent newCrash = new CrashEvent(numCrashes);
+		 * removeGameWorldObject(sph); eventMgr.triggerEvent(newCrash); } if
+		 * ((jade.getWorldBound().intersects(p2.getWorldBound())) &&
+		 * collidedWDiamond == false){ collidedWDiamond = true; numCrashes++;
+		 * score2 += 1000; CrashEvent newCrash = new CrashEvent(numCrashes);
+		 * removeGameWorldObject(jade); eventMgr.triggerEvent(newCrash); }
+		 */
 		// update player 1's HUD
 		player1ScoreString.setText("Score = " + score1);
 		time1 += elapsedTimeMS;
@@ -1058,7 +997,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 		lowerCenterEyeSpike.translate(0, 4, 0);
 		lowerCenterEyeSpike.rotate(180f, new Vector3D(5, 0, 0));
 
-		addGameWorldObject(group1, true);
+		addGameWorldObject(group1);
 	}
 
 	private void createRing() {
@@ -1214,7 +1153,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 		ringGroup1.updateGeometricState(0, true);
 		ringGroup1.updateWorldBound();
 
-		addGameWorldObject(ringGroup1, true);
+		addGameWorldObject(ringGroup1);
 	}
 
 	protected void render() {
@@ -1225,8 +1164,8 @@ public class FightingGame extends BaseGame implements KeyListener {
 		 */
 	}
 
-	private IDisplaySystem createFullDisplaySystem() {
-		display = new MyDisplaySystem(1920, 1200, 32, 60, false,
+	private IDisplaySystem createDisplaySystem() {
+		display = new MyDisplaySystem(1920, 1200, 32, 60, true,
 				"sage.renderer.jogl.JOGLRenderer");
 		System.out.print("\nWaiting for display creation...");
 		int count = 0;
@@ -1249,39 +1188,9 @@ public class FightingGame extends BaseGame implements KeyListener {
 		System.out.println();
 		return display;
 	}
-   private IDisplaySystem createWDisplaySystem() {
-		display = new MyDisplaySystem(1280, 800, 32, 60, false,
-				"sage.renderer.jogl.JOGLRenderer");
-		System.out.print("\nWaiting for display creation...");
-		int count = 0;
-		// wait until display creation completes or a timeout occurs
-		while (!display.isCreated()) {
-			try {
-				Thread.sleep(10);
-			} catch (InterruptedException e) {
-				throw new RuntimeException("Display creation interrupted");
-			}
-			count++;
-			System.out.print("+");
-			if (count % 80 == 0) {
-				System.out.println();
-			}
-			if (count > 2000) { // 20 seconds (approx.)
-				throw new RuntimeException("Unable to create display");
-			}
-		}
-		System.out.println();
-		return display;
-	}
-   public boolean isInFSEM(){
-      return inFSEM;
-   } 
-   public void setInFSEM(boolean ght){
-      inFSEM = ght;
-      changeSystem();
-   }
+
 	protected void shutdown() {
-		display.close();
+		// display.close();
 
 		super.shutdown();
 		if (thisClient != null) {
@@ -1294,35 +1203,14 @@ public class FightingGame extends BaseGame implements KeyListener {
 		}
 	}
 
-	
-	 protected void initSystem(){
-       //call a local method to create a DisplaySystem object 
-       IDisplaySystem display = createWDisplaySystem();
-   	 setDisplaySystem(display); 
-       //create an Input Manager
-   	 IInputManager inputManager = new InputManager(); 
-       setInputManager(inputManager);
-   	 //create an (empty) gameworld 
-       ArrayList<SceneNode> gameWorld = new ArrayList<SceneNode>(); 
-       setGameWorld(gameWorld); 
-    }
-	 
-    protected void changeSystem(){
-       //call a local method to create a DisplaySystem object 
-       display.close();
-       if(inFSEM) display = createFullDisplaySystem();
-       else display = createWDisplaySystem();
-   	 setDisplaySystem(display); 
-       
-       getDisplaySystem().setTitle("Fighting Game");
-		 renderer = getDisplaySystem().getRenderer(); 
-       //setGameWorld(gameWorldX); 
-       
-       ArrayList<SceneNode> gameWorld = new ArrayList<SceneNode>(); 
-       setGameWorld(gameWorld); 
-       initGame();
-    }
-
+	/*
+	 * protected void initSystem(){ //call a local method to create a
+	 * DisplaySystem object IDisplaySystem display = createDisplaySystem();
+	 * setDisplaySystem(display); //create an Input Manager IInputManager
+	 * inputManager = new InputManager(); setInputManager(inputManager);
+	 * //create an (empty) gameworld ArrayList<SceneNode> gameWorld = new
+	 * ArrayList<SceneNode>(); setGameWorld(gameWorld); }
+	 */
 	public Vector3D getPlayerPosition() {
 		Vector3D position = playerOne.getLocalTranslation().getCol(3);
 
@@ -1419,13 +1307,13 @@ public class FightingGame extends BaseGame implements KeyListener {
 		floorTexture.setApplyMode(sage.texture.Texture.ApplyMode.Replace);
 		hillTerr.setTexture(floorTexture);
 
-		addGameWorldObject(hillTerr, true);
+		addGameWorldObject(hillTerr);
 	}
 
 	public void addNode(GhostAvatar avatar) {
 		// TODO Auto-generated method stub
 		System.out.println("i'm being called!");
-		this.addGameWorldObject(avatar, true);
+		this.addGameWorldObject(avatar);
 
 	}
 
@@ -1437,7 +1325,7 @@ public class FightingGame extends BaseGame implements KeyListener {
 
    public void addNPC(GhostNPC newNPC){
       System.out.println("addnode is being called!");
-		this.addGameWorldObject(newNPC, true);
+		this.addGameWorldObject(newNPC);
    }
 	protected void initPhysicsSystem() {
 		String engine = "sage.physics.JBullet.JBulletPhysicsEngine";
@@ -1506,9 +1394,4 @@ public class FightingGame extends BaseGame implements KeyListener {
 	{
 		startAnimProcess = b;
 	}
-   private void addGameWorldObject(SceneNode s, boolean p){
-      addGameWorldObject(s);
-      gameWorldX.add(s);
-      
-   }
 }
